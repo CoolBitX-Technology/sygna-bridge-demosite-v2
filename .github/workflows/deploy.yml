@@ -19,7 +19,7 @@ jobs:
           npm install
       - name: install gh-pages
         run: |
-          npm install gh-pages --save-dev
+          npm install -g gh-pages
       - name: predeploy
         run: |
           npm run build
