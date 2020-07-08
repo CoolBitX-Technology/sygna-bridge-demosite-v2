@@ -1,0 +1,12 @@
+@import "settings"; 
+@import "mixin";
+#header {
+    position: relative;
+    width: 100%;
+    padding: 14px 0 8px;
+    background-color: $main-color;
+    .logo {
+        display: inline-block;
+        max-width: 200px;
+    }
+}
