@@ -1,75 +1,75 @@
-import crypto from 'crypto';
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import StepConnector from '@material-ui/core/StepConnector';
-import clsx from 'clsx';
-import Check from '@material-ui/icons/Check';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import { Tab, Tabs } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import * as bridgeUtil from '@sygna/bridge-util';
-import Bridge from '../components/Bridge';
-import Originator from '../components/OriVASP';
-import BeneInfo from '../components/BeneInfo/BeneInfo';
+import crypto from "crypto";
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import StepConnector from "@material-ui/core/StepConnector";
+import clsx from "clsx";
+import Check from "@material-ui/icons/Check";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import { Tab, Tabs } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import * as bridgeUtil from "@sygna/bridge-util";
+import Bridge from "../components/Bridge";
+import Originator from "../components/OriVASP";
+import BeneInfo from "../components/BeneInfo/BeneInfo";
 import {
   defaultOriginatorInfo,
   FAKE_PRIVATE_KEY,
   FAKE_PUBLIC_KEY,
-} from '../config';
-import 'typeface-noto-sans';
-import 'typeface-open-sans';
+} from "../config";
+import "typeface-noto-sans";
+import "typeface-open-sans";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     //flexGrow: 1,
-    height: '100%',
-    borderRadius: '0',
+    height: "100%",
+    borderRadius: "0",
   },
   stepBlock: {
-    padding: '22px 0 33px',
+    padding: "22px 0 33px",
   },
   stepStyle: {
-    width: '100%',
-    maxWidth: '640px',
-    margin: '0 auto',
-    padding: '0',
-    marginTop: '22px',
-    backgroundColor: 'transparent',
+    width: "100%",
+    maxWidth: "640px",
+    margin: "0 auto",
+    padding: "0",
+    marginTop: "22px",
+    backgroundColor: "transparent",
   },
   leftPadding: {
-    padding: '20px',
-    borderRadius: '0',
+    padding: "20px",
+    borderRadius: "0",
   },
   rightPadding: {
-    padding: '20px 30px',
+    padding: "20px 30px",
   },
   textCenter: {
-    textAlign: 'center',
+    textAlign: "center",
   },
 }));
 
 const QontoConnector = withStyles({
   alternativeLabel: {
     top: 12,
-    left: 'calc(-50% + 16px)',
-    right: 'calc(50% + 16px)',
+    left: "calc(-50% + 16px)",
+    right: "calc(50% + 16px)",
   },
   active: {
-    '& $line': {
-      borderColor: '#42826B',
+    "& $line": {
+      borderColor: "#42826B",
     },
   },
   completed: {
-    '& $line': {
-      borderColor: '#42826B',
+    "& $line": {
+      borderColor: "#42826B",
     },
   },
   line: {
-    borderColor: '#9FB6AE',
+    borderColor: "#9FB6AE",
     borderTopWidth: 5,
     borderRadius: 1,
   },
@@ -77,31 +77,31 @@ const QontoConnector = withStyles({
 
 const useQontoStepIconStyles = makeStyles({
   root: {
-    color: '#9FB6AE',
-    display: 'flex',
+    color: "#9FB6AE",
+    display: "flex",
     height: 30,
-    alignItems: 'center',
+    alignItems: "center",
   },
   active: {
-    color: '#42826B',
+    color: "#42826B",
   },
   circle: {
     width: 30,
     height: 30,
-    borderRadius: '50%',
-    backgroundColor: 'currentColor',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderRadius: "50%",
+    backgroundColor: "currentColor",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   completed: {
-    color: '#fff',
+    color: "#fff",
     zIndex: 1,
     fontSize: 18,
     width: 30,
     height: 30,
-    backgroundColor: '#104935',
-    borderRadius: '50%',
+    backgroundColor: "#104935",
+    borderRadius: "50%",
     svg: {
       width: 24,
       height: 24,
@@ -130,32 +130,32 @@ function QontoStepIcon(props) {
 }
 
 function getSteps() {
-  return ['', '', ''];
+  return ["", "", ""];
 }
 
 const StyledTabs = withStyles({
   root: {
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   indicator: {
-    width: '100%',
-    height: '8px',
-    backgroundColor: 'rgba(16, 73, 53, 1)',
-    borderRadius: '20px',
+    width: "100%",
+    height: "8px",
+    backgroundColor: "rgba(16, 73, 53, 1)",
+    borderRadius: "20px",
   },
 })((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
 const StyledTab = withStyles((theme) => ({
   root: {
-    textTransform: 'none',
-    color: '#222B45',
-    fontSize: '18px',
-    padding: '25px 18px',
-    borderBottom: '5px solid rgba(16, 73, 53, 0.32)',
-    '&:focus': {
+    textTransform: "none",
+    color: "#222B45",
+    fontSize: "18px",
+    padding: "25px 18px",
+    borderBottom: "5px solid rgba(16, 73, 53, 0.32)",
+    "&:focus": {
       opacity: 1,
     },
-    cursor: 'default',
+    cursor: "default",
   },
 }))((props) => <Tab disableRipple {...props} />);
 
@@ -165,8 +165,8 @@ function Content(props) {
   const steps = getSteps();
   const [value, setValue] = React.useState(0);
   const [transferInfo, setTransferInfo] = React.useState({
-    currency_id: '',
-    originator_vasp_code: '',
+    currency_id: "",
+    originator_vasp_code: "",
   });
   const [clickCount, setClickCount] = React.useState(0);
   const [clickAccept, setClickAccept] = React.useState(false);
@@ -179,7 +179,7 @@ function Content(props) {
   const handleChange = (event) => {
     const obj = { ...transferInfo };
     obj[event.target.name] = event.target.value;
-    inputErrors[event.target.name] = '';
+    inputErrors[event.target.name] = "";
     setTransferInfo(obj);
     // hasError(false);
   };
@@ -199,7 +199,7 @@ function Content(props) {
     };
     const private_info = bridgeUtil.crypto.sygnaEncodePrivateObj(
       privateObj,
-      FAKE_PUBLIC_KEY,
+      FAKE_PUBLIC_KEY
     );
 
     const current = new Date().toISOString();
@@ -226,14 +226,14 @@ function Content(props) {
         amount: transferInfo.amount,
       },
       data_dt: current,
-      signature: '',
+      signature: "",
     };
     const signedObj = bridgeUtil.crypto.signObject(msgObj, FAKE_PRIVATE_KEY);
     const transfer_id = crypto
-      .createHash('sha256')
-      .update(JSON.stringify(signedObj), 'utf8')
+      .createHash("sha256")
+      .update(JSON.stringify(signedObj), "utf8")
       .digest()
-      .toString('hex');
+      .toString("hex");
 
     setSignedData({
       ...signedObj,
@@ -294,18 +294,18 @@ function Content(props) {
         );
       default:
         // throw new Error('Unknown step');
-        console.log('Unknown step');
+        console.log("Unknown step");
     }
   }
   const description = () => {
     if (activeStep === 0) {
-      return 'Prepare Data';
+      return "Prepare Data";
     } else if (activeStep === 1) {
-      return 'Verify Signature';
+      return "Verify Signature";
     } else if (activeStep === 2) {
-      return 'Confirm Transfer';
+      return "Confirm Transfer";
     } else {
-      return 'Receive Certificate';
+      return "Receive Certificate";
     }
   };
   return (
@@ -316,7 +316,6 @@ function Content(props) {
             <Typography variant="h5" className={classes.textCenter}>
               {description()}
             </Typography>
-            {console.log(`activeStep= ${activeStep}`)}
             <Stepper
               alternativeLabel
               activeStep={activeStep}
