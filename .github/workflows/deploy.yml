@@ -17,12 +17,11 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
-      - name: install gh-pages
-        run: |
-          npm install -g gh-pages
       - name: predeploy
         run: |
           npm run build
-      - name: predeploy
-        run: |
-          gh-pages -d build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.techSygnaGitHubToken }}
+          publish_branch: master
