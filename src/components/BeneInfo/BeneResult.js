@@ -1,21 +1,21 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 const marginTop = {
-  marginTop: "30px",
+  marginTop: '30px',
 };
 
 const grayTxt = {
-  marginTop: "5px",
-  color: "#8F9BB3",
+  marginTop: '5px',
+  color: '#8F9BB3',
 };
 
 const TestBlu = withStyles({
   root: {
-    color: "#006FB1",
-    wordWrap: "break-word",
+    color: '#006FB1',
+    wordWrap: 'break-word',
   },
 })(Typography);
 
@@ -46,9 +46,9 @@ export default function BeneResult(props) {
           </Grid>
           <Grid item xs={8} md={9}>
             {clickAccept === true ? (
-              <Typography style={{ color: "#049956" }}>ACCEPT</Typography>
+              <Typography style={{ color: '#049956' }}>ACCEPT</Typography>
             ) : (
-              <Typography style={{ color: "#CC2A32" }}>REJECT</Typography>
+              <Typography style={{ color: '#CC2A32' }}>REJECT</Typography>
             )}
           </Grid>
         </Grid>

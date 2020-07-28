@@ -1,9 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TransInfo from './OriVasp/TransferInfo';
-import OriginInfo from './OriVasp/OriginInfo';
 import Button from '@material-ui/core/Button';
-import BeneResult from './BeneInfo/BeneResult';
 
 const useStyles = makeStyles(() => ({
   layout: {
@@ -15,7 +12,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Originator(props) {
+export default function Beneficiary(props) {
   const classes = useStyles();
   const {
     activeStep,
@@ -23,7 +20,7 @@ export default function Originator(props) {
     disable,
     transferInfo,
     onChange,
-    onSend,
+    onShare,
     inputErrors,
     setInputErrors,
     signedData,
@@ -49,39 +46,29 @@ export default function Originator(props) {
       props.onError();
       return;
     }
-    onSend();
+    onShare();
   };
   return (
     <React.Fragment>
       <main className={classes.layout}>
-        {activeStep === 4 ? (
-          <BeneResult
-            activeStep={activeStep}
-            clickAccept={clickAccept}
-            signedData={signedData}
-          />
-        ) : null}
         <form autoComplete="off" noValidate onSubmit={handleSubmit}>
-          <TransInfo
+          {/* <TransInfo
             disable={disable}
             transferInfo={transferInfo}
             onChange={onChange}
             inputErrors={inputErrors}
-          />
+          /> */}
           {/* 不等於 0 不等於 3 */}
-          {activeStep === 4 ? null : <OriginInfo />}
-          {/* 不等於 0 不等於 3 */}
-          {activeStep === 4 ? null : (
-            <div className={classes.buttons}>
-              <Button
-                variant="contained"
-                type={'submit'}
-                className="btn btn-primary"
-              >
-                Send
-              </Button>
-            </div>
-          )}
+
+          <div className={classes.buttons}>
+            <Button
+              variant="contained"
+              type={'submit'}
+              className="btn btn-primary"
+            >
+              Share
+            </Button>
+          </div>
         </form>
       </main>
     </React.Fragment>

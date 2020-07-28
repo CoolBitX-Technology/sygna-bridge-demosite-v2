@@ -1,43 +1,43 @@
-import React from "react";
-import CheckCircleRoundedIcon from "@material-ui/icons/CheckCircleRounded";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import ListItem from "@material-ui/core/ListItem";
-import PrivateInfo from "./Private";
+import React from 'react';
+import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import ListItem from '@material-ui/core/ListItem';
+import PrivateInfo from './BeneInfo/Private';
 
 const useStyles = makeStyles((theme) => ({
   padding: {
-    padding: "0 10px",
+    padding: '0 10px',
   },
 }));
 
 const TestBtn = withStyles({
   root: {
-    marginBottom: "0",
-    padding: "8px 15px",
+    marginBottom: '0',
+    padding: '8px 15px',
     lineHeight: 1.5,
-    fontSize: "14px",
-    "&:hover": {
-      boxShadow: "none",
+    fontSize: '14px',
+    '&:hover': {
+      boxShadow: 'none',
     },
-    "&:active": {
-      boxShadow: "none",
+    '&:active': {
+      boxShadow: 'none',
     },
   },
 })(Button);
 
 const TestIcon = {
-  marginRight: "5px",
-  fontSize: "32px",
+  marginRight: '5px',
+  fontSize: '32px',
 };
 
 const TestBlu = withStyles({
   root: {
-    borderColor: "#006FB1",
-    color: "#006FB1",
-    wordWrap: "break-word",
+    borderColor: '#006FB1',
+    color: '#006FB1',
+    wordWrap: 'break-word',
   },
 })(Typography);
 
@@ -61,26 +61,26 @@ export default function BeneInfo(props) {
   const { private_info, signature, transfer_id, data_dt } = signedData;
 
   const transcations = [
-    { name: "Beneficiary Vasp Code", detail: beneficiary_vasp.vasp_code },
+    { name: 'Beneficiary Vasp Code', detail: beneficiary_vasp.vasp_code },
     {
-      name: "Originator Address",
+      name: 'Originator Address',
       detail: originator_vasp.addrs[0].address,
     },
-    { name: "Originator VASP Code", detail: originator_vasp.vasp_code },
+    { name: 'Originator VASP Code', detail: originator_vasp.vasp_code },
     {
-      name: "Beneficiary Address",
+      name: 'Beneficiary Address',
       detail: beneficiary_vasp.addrs[0].address,
     },
-    { name: "Transaction Currency", detail: currency_id },
-    { name: "Amount", detail: amount },
+    { name: 'Transaction Currency', detail: currency_id },
+    { name: 'Amount', detail: amount },
   ];
   const VeriText = () => {
     return (
-      <ListItem style={{ padding: 0, color: "#34C174" }} disableGutters="true">
+      <ListItem style={{ padding: 0, color: '#34C174' }} disableGutters="true">
         {clickCount === 0 ? null : (
           <ListItem disableGutters="true">
             <CheckCircleRoundedIcon style={TestIcon} />
-            <ListItem style={{ fontFamily: "Open Sans", paddingLeft: "0" }}>
+            <ListItem style={{ fontFamily: 'Open Sans', paddingLeft: '0' }}>
               Verify Success!
             </ListItem>
           </ListItem>
@@ -103,7 +103,7 @@ export default function BeneInfo(props) {
             variant="contained"
             className="btn btn-primary"
           >
-            {clickCount === 0 ? "Verify" : "Decrypt"}
+            {clickCount === 0 ? 'Verify' : 'Decrypt'}
           </TestBtn>
         ) : null}
       </Typography>
