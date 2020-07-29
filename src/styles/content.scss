@@ -107,7 +107,7 @@ h6 {
   display: block;
   margin: 7px 0;
   height: 1px;
-  background-color: #C5CEE0;
+  background-color: #c5cee0;
 }
 
 .border_form {
@@ -127,8 +127,10 @@ h6 {
 }
 
 .btn {
-  min-width: 100px !important;
-  padding: 8px 20px !important;
+  min-width: 100px;
+  padding: 8px 20px;
+  // min-width: 100px !important;
+  // padding: 8px 20px !important;
   text-transform: capitalize !important;
   font-size: 14px !important;
 

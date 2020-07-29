@@ -167,14 +167,20 @@ function Content(props) {
   const [value, setValue] = React.useState(0);
   const [transferInfo, setTransferInfo] = React.useState({
     currency_id: '',
-    originator_vasp_code: '',
+    first_name: 'Alice',
+    last_name: 'Andrews',
+    beneficiary_address: '0x0b696FEB926675a2f8B55644A1669b43b9924C03',
+    VAAI:
+      'ethereum:0x0b696FEB926675a2f8B55644A1669b43b9924C03?personType=NaturalPerson&primaryIdentifier=Andrews&secondaryIdentifier=Alice&vc=BTSNKRSE',
+    beneficiary_vasp_code: 'BTSNKRSE',
+    amount: '',
+    beneficiary_name: '',
   });
   const [clickCount, setClickCount] = React.useState(0);
   const [clickAccept, setClickAccept] = React.useState(false);
   const [disable, setDisable] = React.useState(false);
   const [error, hasError] = React.useState(false);
   const [inputErrors, setInputErrors] = React.useState({});
-
   const [signedData, setSignedData] = React.useState({});
 
   const handleChange = (event) => {
@@ -182,7 +188,6 @@ function Content(props) {
     obj[event.target.name] = event.target.value;
     inputErrors[event.target.name] = '';
     setTransferInfo(obj);
-    // hasError(false);
   };
   const handleShare = () => {
     setValue(1);
@@ -209,6 +214,7 @@ function Content(props) {
 
     const current = new Date().toISOString();
     const msgObj = {
+      //我要加密的東西（明文）
       private_info: private_info,
       transaction: {
         originator_vasp: {
@@ -233,6 +239,7 @@ function Content(props) {
       data_dt: current,
       signature: '',
     };
+    //signedObj = {...msgObj ,signature:'xxxxxxxxx' }
     const signedObj = bridgeUtil.crypto.signObject(msgObj, FAKE_PRIVATE_KEY);
     const transfer_id = crypto
       .createHash('sha256')
@@ -273,16 +280,12 @@ function Content(props) {
             <Beneficiary
               error={error}
               onShare={handleShare}
-              activeStep={activeStep}
               transferInfo={transferInfo}
               onChange={handleChange}
               value={value}
-              clickAccept={clickAccept}
-              disable={disable}
               onError={handleError}
               inputErrors={inputErrors}
               setInputErrors={setInputErrors}
-              signedData={signedData}
             />
           );
         } else {
@@ -358,6 +361,9 @@ function Content(props) {
                       setActiveStep(0);
                       setClickCount(0);
                       setValue(0);
+                    } else if (activeStep === 2 && clickCount === 0) {
+                      setActiveStep(1);
+                      setValue(1);
                     } else if (activeStep === 2 && clickCount === 1) {
                       setActiveStep(1);
                       setClickCount(0);
@@ -379,6 +385,15 @@ function Content(props) {
             </Stepper>
           </div>
           <Grid container spacing={3}>
+            {/* {activeStep < 2 ? (
+            <Grid item xs={12}>
+              <Test />
+            </Grid>
+          ) : (
+            <Grid item xs={12} md={8}>
+              <Test />
+            </Grid>
+            )} */}
             {/* VASP & Info */}
             <Grid item xs={12} md={8}>
               <Paper
@@ -396,17 +411,17 @@ function Content(props) {
               </Paper>
             </Grid>
             {/* Bridge Service */}
-            <Grid item xs={12} md={4}>
-              <Paper elevation={0} className={classes.root}>
-                {activeStep === 0 ? null : (
+            {activeStep < 2 ? null : (
+              <Grid item xs={12} md={4}>
+                <Paper elevation={0} className={classes.root}>
                   <Bridge
                     activeStep={activeStep}
                     clickAccept={clickAccept}
                     signedData={signedData}
                   />
-                )}
-              </Paper>
-            </Grid>
+                </Paper>
+              </Grid>
+            )}
           </Grid>
         </div>
       </div>
