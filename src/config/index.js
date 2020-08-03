@@ -15,4 +15,24 @@ const FAKE_PRIVATE_KEY =
 const FAKE_PUBLIC_KEY =
   '045b409c8c15fd82744ce4f7f86d65f27d605d945d4c4eee0e4e2515a3894b9d157483cc5e49c62c07b46cd59bc980445d9cf987622d66df20c6c3634f6eb05085';
 
-export { defaultOriginatorInfo, FAKE_PRIVATE_KEY, FAKE_PUBLIC_KEY };
+const address = {
+  'sygna:0x80000000': '1234',
+  'sygna:0x8000003c': {
+    currency_id: 'sygna:0x8000003c',
+    beneficiary_address: '0x8000003c926675a2f8B55644A1669b43b9924C03',
+    VAAI:
+      'bitcoin:0x8000003c926675a2f8B55644A1669b43b9924C03?personType=NaturalPerson&primaryIdentifier=Andrews&secondaryIdentifier=Alice&vc=BTSNKRSE',
+  },
+  // 'sygna:0x80000000': {
+  //   beneficiary_address: '0x0b696FEB926675a2f8B55644A1669b43b9924C03',
+  //   VAAI:
+  //     'bitcoin:0x0b696FEB926675a2f8B55644A1669b43b9924C03?personType=NaturalPerson&primaryIdentifier=Andrews&secondaryIdentifier=Alice&vc=BTSNKRSE',
+  // },
+  // 'sygna:0x8000003c': {
+  //   beneficiary_address: '0x8000003c926675a2f8B55644A1669b43b9924C03',
+  //   VAAI:
+  //     'bitcoin:0x8000003c926675a2f8B55644A1669b43b9924C03?personType=NaturalPerson&primaryIdentifier=Andrews&secondaryIdentifier=Alice&vc=BTSNKRSE',
+  // },
+};
+
+export { defaultOriginatorInfo, FAKE_PRIVATE_KEY, FAKE_PUBLIC_KEY, address };

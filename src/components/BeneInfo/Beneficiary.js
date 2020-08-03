@@ -33,13 +33,7 @@ export default function Beneficiary(props) {
   const marginTop = {
     marginTop: '30px',
   };
-  const {
-    transferInfo,
-    onChange,
-    onShare,
-    inputErrors,
-    setInputErrors,
-  } = props;
+  const { sampleInfo, onChange, inputErrors, setInputErrors } = props;
 
   const {
     currency_id,
@@ -48,38 +42,39 @@ export default function Beneficiary(props) {
     first_name,
     last_name,
     beneficiary_vasp_code,
-  } = transferInfo;
+  } = sampleInfo;
 
-  const getError = (field) => inputErrors[field];
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const isValid = form.checkValidity(); // 目前的表單資料是不是有效的
-    // const isValid = true;
-    const formData = new FormData(form); //表單的資料拿出來
-    const validationMessages = Array.from(formData.keys()).reduce(
-      (acc, key) => {
-        // console.log(`key = ${key}`);
-        acc[key] = form.elements[key].validationMessage;
-        return acc;
-      },
-      {}
-    );
-    if (!isValid) {
-      setInputErrors(validationMessages);
-      props.onError();
-      return;
-    }
-    onShare();
-  };
+  //const getError = (field) => inputErrors[field];
+  //   const handleSubmit = (e) => {
+  //     e.preventDefault();
+  //     const form = e.target;
+  //     const isValid = form.checkValidity(); // 目前的表單資料是不是有效的
+  //     // const isValid = true;
+  //     const formData = new FormData(form); //表單的資料拿出來
+  //     const validationMessages = Array.from(formData.keys()).reduce(
+  //       (acc, key) => {
+  //         // console.log(`key = ${key}`);
+  //         acc[key] = form.elements[key].validationMessage;
+  //         return acc;
+  //       },
+  //       {}
+  //     );
+  //     if (!isValid) {
+  //       setInputErrors(validationMessages);
+  //       props.onError();
+  //       return;
+  //     }
+  //     onShare();
+  //   };
   return (
     <React.Fragment>
       <main className={classes.layout}>
-        <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+        <form autoComplete="off" noValidate>
           <div style={margin}>
             <Typography variant="h6" className="title">
               transfer info
             </Typography>
+            console.log(`currency_id(index) = ${currency_id}`);
             <Grid container spacing={2} className={classes.my_1}>
               <Grid item xs={12} sm={6}>
                 <Typography
@@ -91,8 +86,7 @@ export default function Beneficiary(props) {
                 </Typography>
                 <FormControl
                   fullWidth
-                  required
-                  error={!!getError('currency_id')}
+                  //error={!!getError('currency_id')}
                 >
                   <Select
                     id="currency_id"
@@ -102,13 +96,17 @@ export default function Beneficiary(props) {
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
                     classes={{ root: classes.root }}
-                    helperText={getError('currency_id')}
+                    //helperText={getError('currency_id')}
                   >
                     <MenuItem value="" disabled>
                       Select
                     </MenuItem>
-                    <MenuItem value={'sygna:0x80000000'}>BTC</MenuItem>
-                    <MenuItem value={'sygna:0x8000003c'}>ETH</MenuItem>
+                    <MenuItem value={'sygna:0x80000000'} index={1}>
+                      BTC
+                    </MenuItem>
+                    <MenuItem value={'sygna:0x8000003c'} index={2}>
+                      ETH
+                    </MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -123,7 +121,6 @@ export default function Beneficiary(props) {
                   virtual asset address
                 </Typography>
                 <TextField
-                  required
                   id="beneficiary_address"
                   name="beneficiary_address"
                   fullWidth
@@ -171,7 +168,6 @@ export default function Beneficiary(props) {
                     virtual asset account Information (VAAI)
                   </Typography>
                   <TextField
-                    required
                     id="VAAI"
                     name="VAAI"
                     fullWidth
@@ -217,7 +213,6 @@ export default function Beneficiary(props) {
                     fullWidth
                     value={first_name}
                     disabled
-                    onChange={onChange}
                   />
                 </Grid>
               </Grid>
@@ -237,7 +232,6 @@ export default function Beneficiary(props) {
                     fullWidth
                     value={last_name}
                     disabled
-                    onChange={onChange}
                   />
                 </Grid>
               </Grid>
@@ -257,7 +251,6 @@ export default function Beneficiary(props) {
                     fullWidth
                     value={beneficiary_vasp_code}
                     disabled
-                    onChange={onChange}
                   />
                 </Grid>
               </Grid>
@@ -268,8 +261,9 @@ export default function Beneficiary(props) {
               variant="contained"
               type={'submit'}
               className="btn btn-primary"
+              onClick={props.onStart}
             >
-              Share with Originator
+              Request a Payment
             </Button>
           </div>
         </form>

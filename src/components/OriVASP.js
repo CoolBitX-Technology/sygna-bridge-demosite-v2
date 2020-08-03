@@ -27,6 +27,7 @@ export default function Originator(props) {
     inputErrors,
     setInputErrors,
     signedData,
+    tab,
   } = props;
 
   //const [error, hasError] = React.useState(false);
@@ -54,7 +55,7 @@ export default function Originator(props) {
   return (
     <React.Fragment>
       <main className={classes.layout}>
-        {activeStep === 4 ? (
+        {activeStep === 3 ? (
           <BeneResult
             activeStep={activeStep}
             clickAccept={clickAccept}
@@ -67,11 +68,12 @@ export default function Originator(props) {
             transferInfo={transferInfo}
             onChange={onChange}
             inputErrors={inputErrors}
+            tab={tab}
           />
           {/* 不等於 0 不等於 3 */}
-          {activeStep === 4 ? null : <OriginInfo />}
+          {activeStep === 3 ? null : <OriginInfo />}
           {/* 不等於 0 不等於 3 */}
-          {activeStep === 4 ? null : (
+          {activeStep === 3 ? null : (
             <div className={classes.buttons}>
               <Button
                 variant="contained"

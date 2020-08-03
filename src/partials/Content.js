@@ -9,7 +9,7 @@ import Check from '@material-ui/icons/Check';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import { Tab, Tabs } from '@material-ui/core';
+//import { Tab, Tabs } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import * as bridgeUtil from '@sygna/bridge-util';
 import Bridge from '../components/Bridge';
@@ -19,10 +19,12 @@ import {
   defaultOriginatorInfo,
   FAKE_PRIVATE_KEY,
   FAKE_PUBLIC_KEY,
+  address,
 } from '../config';
 import 'typeface-noto-sans';
 import 'typeface-open-sans';
 import Beneficiary from '../components/BeneInfo/Beneficiary';
+import TabComponents from '../components/Tab';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -131,50 +133,35 @@ function QontoStepIcon(props) {
 }
 
 function getSteps() {
-  return ['', '', '', ''];
+  return ['', '', ''];
 }
-
-const StyledTabs = withStyles({
-  root: {
-    justifyContent: 'center',
-  },
-  indicator: {
-    width: '100%',
-    height: '8px',
-    backgroundColor: 'rgba(16, 73, 53, 1)',
-    borderRadius: '20px',
-  },
-})((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
-
-const StyledTab = withStyles((theme) => ({
-  root: {
-    textTransform: 'none',
-    color: '#222B45',
-    fontSize: '18px',
-    padding: '25px 18px',
-    borderBottom: '5px solid rgba(16, 73, 53, 0.32)',
-    '&:focus': {
-      opacity: 1,
-    },
-    cursor: 'default',
-  },
-}))((props) => <Tab disableRipple {...props} />);
 
 function Content(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
   const [value, setValue] = React.useState(0);
-  const [transferInfo, setTransferInfo] = React.useState({
-    currency_id: '',
+  const tab = {
+    tab1: 'Originator VASP',
+    tab2: 'Beneficiary VASP',
+  };
+  const [sampleInfo, setSampleInfo] = React.useState({
+    currency_id: 'sygna:0x80000000',
     first_name: 'Alice',
     last_name: 'Andrews',
     beneficiary_address: '0x0b696FEB926675a2f8B55644A1669b43b9924C03',
     VAAI:
-      'ethereum:0x0b696FEB926675a2f8B55644A1669b43b9924C03?personType=NaturalPerson&primaryIdentifier=Andrews&secondaryIdentifier=Alice&vc=BTSNKRSE',
+      'bitcoin:0x0b696FEB926675a2f8B55644A1669b43b9924C03?personType=NaturalPerson&primaryIdentifier=Andrews&secondaryIdentifier=Alice&vc=BTSNKRSE',
     beneficiary_vasp_code: 'BTSNKRSE',
+  });
+  const [transferInfo, setTransferInfo] = React.useState({
+    currency_id: '',
+    first_name: '',
+    last_name: '',
+    beneficiary_address: '',
+    beneficiary_vasp_code: '',
     amount: '',
-    beneficiary_name: '',
+    legal_name: '',
   });
   const [clickCount, setClickCount] = React.useState(0);
   const [clickAccept, setClickAccept] = React.useState(false);
@@ -183,21 +170,35 @@ function Content(props) {
   const [inputErrors, setInputErrors] = React.useState({});
   const [signedData, setSignedData] = React.useState({});
 
+  const sampleChange = (event) => {
+    const obj = { ...sampleInfo };
+    obj[event.target.name] = event.target.value;
+    //inputErrors[event.target.name] = '';
+    //console.log(`address.currency_id obj = ${JSON.stringify(obj)}`);
+    const { currency_id, beneficiary_address, VAAI } = address;
+    if (event.target.name === 'currency_id') {
+      address[obj.currency_id] = 'sygna:0x8000003c';
+      setSampleInfo({ currency_id, beneficiary_address, VAAI });
+      console.log(`address.currency_id obj = ${JSON.stringify(obj)}`);
+    }
+  };
+
   const handleChange = (event) => {
     const obj = { ...transferInfo };
     obj[event.target.name] = event.target.value;
     inputErrors[event.target.name] = '';
+    //console.log(`handleChange obj = ${JSON.stringify(obj)}`);
     setTransferInfo(obj);
+
+    //if
   };
-  const handleShare = () => {
+  const handleStart = () => {
     setValue(1);
-    setActiveStep(activeStep + 1);
+    //setActiveStep(activeStep + 1);
   };
   const handleSend = () => {
     setValue(0);
     setActiveStep(activeStep + 1);
-    // setBovasp(defaultOriginatorInfo.originator_vasp_code);
-
     const privateObj = {
       originator: {
         name: defaultOriginatorInfo.name,
@@ -211,7 +212,6 @@ function Content(props) {
       privateObj,
       FAKE_PUBLIC_KEY
     );
-
     const current = new Date().toISOString();
     const msgObj = {
       //我要加密的東西（明文）
@@ -279,10 +279,11 @@ function Content(props) {
           return (
             <Beneficiary
               error={error}
-              onShare={handleShare}
-              transferInfo={transferInfo}
-              onChange={handleChange}
-              value={value}
+              //onShare={handleShare}
+              onStart={handleStart}
+              sampleInfo={sampleInfo}
+              onChange={sampleChange}
+              //value={value}
               onError={handleError}
               inputErrors={inputErrors}
               setInputErrors={setInputErrors}
@@ -310,13 +311,14 @@ function Content(props) {
             activeStep={activeStep}
             transferInfo={transferInfo}
             onChange={handleChange}
-            value={value}
+            //value={value}
             clickAccept={clickAccept}
             disable={disable}
             onError={handleError}
             inputErrors={inputErrors}
             setInputErrors={setInputErrors}
             signedData={signedData}
+            tab={tab}
           />
         );
       default:
@@ -350,9 +352,9 @@ function Content(props) {
               connector={<QontoConnector />}
               className={classes.stepStyle}
             >
-              {steps.map((label) => (
+              {steps.map((label, index) => (
                 <Step
-                  key={label}
+                  key={index.toString()}
                   onClick={() => {
                     if (activeStep > 3) {
                       return;
@@ -401,17 +403,18 @@ function Content(props) {
                 className={(classes.root, classes.leftPadding)}
               >
                 <div>
-                  <StyledTabs value={value} centered>
+                  {/* <StyledTabs value={value} centered>
                     <StyledTab label="Originator VASP" value={1} />
                     <StyledTab label="Beneficiary VASP" value={0} />
-                  </StyledTabs>
+                  </StyledTabs> */}
+                  <TabComponents value={value} tab={tab} />
                   <Typography className={classes.padding} />
                 </div>
                 {getStepContent(value)}
               </Paper>
             </Grid>
             {/* Bridge Service */}
-            {activeStep < 2 ? null : (
+            {activeStep < 1 ? null : (
               <Grid item xs={12} md={4}>
                 <Paper elevation={0} className={classes.root}>
                   <Bridge
