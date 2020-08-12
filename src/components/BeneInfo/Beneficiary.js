@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,6 +11,8 @@ import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import QRCode from 'qrcode.react';
+import { currencyItems } from '../../config';
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -33,7 +36,7 @@ export default function Beneficiary(props) {
   const marginTop = {
     marginTop: '30px',
   };
-  const { sampleInfo, onChange, inputErrors, setInputErrors } = props;
+  const { sampleInfo, onChange } = props;
 
   const {
     currency_id,
@@ -44,28 +47,6 @@ export default function Beneficiary(props) {
     beneficiary_vasp_code,
   } = sampleInfo;
 
-  //const getError = (field) => inputErrors[field];
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     const form = e.target;
-  //     const isValid = form.checkValidity(); // 目前的表單資料是不是有效的
-  //     // const isValid = true;
-  //     const formData = new FormData(form); //表單的資料拿出來
-  //     const validationMessages = Array.from(formData.keys()).reduce(
-  //       (acc, key) => {
-  //         // console.log(`key = ${key}`);
-  //         acc[key] = form.elements[key].validationMessage;
-  //         return acc;
-  //       },
-  //       {}
-  //     );
-  //     if (!isValid) {
-  //       setInputErrors(validationMessages);
-  //       props.onError();
-  //       return;
-  //     }
-  //     onShare();
-  //   };
   return (
     <React.Fragment>
       <main className={classes.layout}>
@@ -74,7 +55,6 @@ export default function Beneficiary(props) {
             <Typography variant="h6" className="title">
               transfer info
             </Typography>
-            console.log(`currency_id(index) = ${currency_id}`);
             <Grid container spacing={2} className={classes.my_1}>
               <Grid item xs={12} sm={6}>
                 <Typography
@@ -84,33 +64,34 @@ export default function Beneficiary(props) {
                 >
                   currency
                 </Typography>
-                <FormControl
+                <Autocomplete
                   fullWidth
-                  //error={!!getError('currency_id')}
-                >
-                  <Select
-                    id="currency_id"
-                    name="currency_id"
-                    value={currency_id}
-                    onChange={onChange}
-                    displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}
-                    classes={{ root: classes.root }}
-                    //helperText={getError('currency_id')}
-                  >
-                    <MenuItem value="" disabled>
-                      Select
-                    </MenuItem>
-                    <MenuItem value={'sygna:0x80000000'} index={1}>
-                      BTC
-                    </MenuItem>
-                    <MenuItem value={'sygna:0x8000003c'} index={2}>
-                      ETH
-                    </MenuItem>
-                  </Select>
-                </FormControl>
+                  freeSolo
+                  id="currency_id"
+                  value={currencyItems.find(
+                    (currency) => currency.value === currency_id
+                  )}
+                  onChange={(_, v) => {
+                    onChange({
+                      target: {
+                        name: 'currency_id',
+                        value: v ? v.value : '',
+                      },
+                    });
+                  }}
+                  options={currencyItems}
+                  getOptionLabel={(option) => {
+                    return option.title;
+                  }}
+                  //getOptionSelected={(option) => option.title}
+                  inputProps={{ 'aria-label': 'Without label' }}
+                  classes={{ root: classes.root }}
+                  renderInput={(params) => <TextField {...params} />}
+                  //renderOption={(option) => option.title}
+                />
               </Grid>
             </Grid>
+            console.log(`abc = ${currency_id}`);
             <Grid container spacing={2} className={classes.my_1}>
               <Grid item xs={12} sm={6}>
                 <Typography
@@ -144,7 +125,6 @@ export default function Beneficiary(props) {
                 />
               </Grid>
             </Grid>
-            {/* {console.log(`currency_id = ${currency_id}`)} */}
             <div style={marginTop}>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -190,6 +170,9 @@ export default function Beneficiary(props) {
                       ),
                     }}
                   />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <QRCode value={VAAI} />
                 </Grid>
               </Grid>
             </div>

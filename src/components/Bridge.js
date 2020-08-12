@@ -135,7 +135,7 @@ function Bridge(props) {
           <OriVASP />
           <BeneVASP />
           <Result />
-          {activeStep > 1 ? <Code signedData={signedData} /> : null}
+          {activeStep > 0 ? <Code signedData={signedData} /> : null}
         </form>
       </Paper>
     </React.Fragment>

@@ -48,9 +48,9 @@ export default function BeneInfo(props) {
     onReject,
     signedData,
     clickCount,
-    beneficiary_name,
+    transferInfo,
+    activeStep,
   } = props;
-
   const {
     originator_vasp,
     beneficiary_vasp,
@@ -184,7 +184,7 @@ export default function BeneInfo(props) {
         <PrivateInfo
           onAccept={onAccept}
           onReject={onReject}
-          beneficiary_name={beneficiary_name}
+          transferInfo={transferInfo}
         />
       ) : null}
     </React.Fragment>

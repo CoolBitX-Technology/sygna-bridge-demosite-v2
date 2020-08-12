@@ -3,11 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-//import { Tab, Tabs } from '@material-ui/core';
 import TabComponents from '../Tab';
+import { supportedCoins } from '../../config/currency';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,13 +38,6 @@ function TabPanel(props) {
   );
 }
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
 export default function TransInfo(props) {
   const classes = useStyles();
   const margin = {
@@ -52,32 +46,28 @@ export default function TransInfo(props) {
   const marginTop = {
     marginTop: '30px',
   };
-  const [value, setValue] = React.useState(0);
-
-  const handleChange2 = (event, newValue) => {
-    setValue(newValue);
-  };
   const { disable, transferInfo, onChange, inputErrors } = props;
   const {
     currency_id,
-    //beneficiary_address,
+    beneficiary_address,
     first_name,
     last_name,
     beneficiary_vasp_code,
     amount,
     legal_name,
+    PersonType,
   } = transferInfo;
 
-  const [tab] = React.useState({
-    tab1: 'Legal Person',
-    tab2: 'Natural Person',
-  });
+  const tab = {
+    tab1: 'Natural Person',
+    tab2: 'Legal Person',
+  };
 
   const getError = (field) => inputErrors[field];
   function NPerson() {
     return (
       <div>
-        <TabPanel value={value} index={0}>
+        <TabPanel value={PersonType} index={1}>
           <Grid container spacing={2} className={classes.my_1}>
             <Grid item xs={12} sm={6}>
               <Typography
@@ -88,6 +78,7 @@ export default function TransInfo(props) {
                 first name
               </Typography>
               <TextField
+                required
                 id="first_name"
                 name="first_name"
                 type="text"
@@ -110,6 +101,7 @@ export default function TransInfo(props) {
                 last name
               </Typography>
               <TextField
+                required
                 id="last_name"
                 name="last_name"
                 type="text"
@@ -164,7 +156,7 @@ export default function TransInfo(props) {
   function LPerson() {
     return (
       <div>
-        <TabPanel value={value} index={1}>
+        <TabPanel value={PersonType} index={0}>
           <Grid container spacing={2} className={classes.my_1}>
             <Grid item xs={12} sm={6}>
               <Typography
@@ -227,6 +219,20 @@ export default function TransInfo(props) {
       </div>
     );
   }
+  console.log(`transferInfo currency_id = ${currency_id}`);
+
+  const sorted = supportedCoins.sort(function (a, b) {
+    const va = a.currency_symbol.toUpperCase();
+    const vb = b.currency_symbol.toUpperCase();
+    if (va < vb) {
+      return -1;
+    }
+    if (va > vb) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
   return (
     <React.Fragment>
       <div style={margin}>
@@ -238,25 +244,36 @@ export default function TransInfo(props) {
             <Typography variant="h6" gutterBottom className="title label_title">
               currency
             </Typography>
-            <FormControl fullWidth required error={!!getError('currency_id')}>
-              <Select
-                id="currency_id"
-                name="currency_id"
-                value={currency_id}
-                onChange={onChange}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-                classes={{ root: classes.root }}
-                disabled={disable}
-                helperText={getError('currency_id')}
-              >
-                <MenuItem value="" disabled>
-                  Select
-                </MenuItem>
-                <MenuItem value={'sygna:0x80000000'}>BTC</MenuItem>
-                <MenuItem value={'sygna:0x8000003c'}>ETH</MenuItem>
-              </Select>
-            </FormControl>
+            <Autocomplete
+              fullWidth
+              required
+              disabled={disable}
+              id="currency_id"
+              value={
+                supportedCoins.find(
+                  (currency) => currency.currency_id === currency_id
+                ) || ''
+              }
+              onChange={(_, v) => {
+                console.log(`onChangeonChange`);
+                onChange({
+                  target: {
+                    name: 'currency_id',
+                    value: v ? v.currency_id : '',
+                  },
+                });
+              }}
+              options={sorted}
+              getOptionLabel={(option) => {
+                if (!option) {
+                  return '';
+                }
+                return option.currency_symbol;
+              }}
+              inputProps={{ 'aria-label': 'Without label' }}
+              classes={{ root: classes.root }}
+              renderInput={(params) => <TextField {...params} />}
+            />
           </Grid>
         </Grid>
         <Grid container spacing={2} className={classes.my_1}>
@@ -290,7 +307,7 @@ export default function TransInfo(props) {
               id="beneficiary_address"
               name="beneficiary_address"
               fullWidth
-              //value=""
+              value={beneficiary_address}
               disabled={disable}
               onChange={onChange}
               helperText={getError('beneficiary_address')}
@@ -302,11 +319,23 @@ export default function TransInfo(props) {
           <Typography variant="h6" gutterBottom className="title">
             beneficiary info
           </Typography>
-          {/* <Tabs value={value2} onChange={handleChange2}>
-            <Tab label="Natural Person" {...a11yProps(0)} />
-            <Tab label="Legal Person" {...a11yProps(1)} />
-          </Tabs> */}
-          <TabComponents value={value} tab={tab} onChange={handleChange2} />
+          <Grid container>
+            <Grid item xs={12} sm={6}>
+              <TabComponents
+                value={PersonType}
+                tab={tab}
+                disabled={disable}
+                onChange={(_, newValue) => {
+                  onChange({
+                    target: {
+                      name: 'PersonType',
+                      value: newValue,
+                    },
+                  });
+                }}
+              />
+            </Grid>
+          </Grid>
           {NPerson()}
           {LPerson()}
         </div>

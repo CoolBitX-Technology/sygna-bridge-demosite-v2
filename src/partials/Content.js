@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import React from 'react';
+import bip21 from 'bip21';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -9,7 +10,6 @@ import Check from '@material-ui/icons/Check';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-//import { Tab, Tabs } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import * as bridgeUtil from '@sygna/bridge-util';
 import Bridge from '../components/Bridge';
@@ -20,7 +20,8 @@ import {
   FAKE_PRIVATE_KEY,
   FAKE_PUBLIC_KEY,
   address,
-} from '../config';
+} from '../config/index';
+import { supportedCoins } from '../config/currency';
 import 'typeface-noto-sans';
 import 'typeface-open-sans';
 import Beneficiary from '../components/BeneInfo/Beneficiary';
@@ -147,11 +148,11 @@ function Content(props) {
   };
   const [sampleInfo, setSampleInfo] = React.useState({
     currency_id: 'sygna:0x80000000',
-    first_name: 'Alice',
-    last_name: 'Andrews',
+    first_name: 'Bob',
+    last_name: 'Baxter',
     beneficiary_address: '0x0b696FEB926675a2f8B55644A1669b43b9924C03',
     VAAI:
-      'bitcoin:0x0b696FEB926675a2f8B55644A1669b43b9924C03?personType=NaturalPerson&primaryIdentifier=Andrews&secondaryIdentifier=Alice&vc=BTSNKRSE',
+      'bitcoin:0x0b696FEB926675a2f8B55644A1669b43b9924C03?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=BTSNKRSE',
     beneficiary_vasp_code: 'BTSNKRSE',
   });
   const [transferInfo, setTransferInfo] = React.useState({
@@ -162,6 +163,7 @@ function Content(props) {
     beneficiary_vasp_code: '',
     amount: '',
     legal_name: '',
+    PersonType: 1,
   });
   const [clickCount, setClickCount] = React.useState(0);
   const [clickAccept, setClickAccept] = React.useState(false);
@@ -169,28 +171,49 @@ function Content(props) {
   const [error, hasError] = React.useState(false);
   const [inputErrors, setInputErrors] = React.useState({});
   const [signedData, setSignedData] = React.useState({});
-
   const sampleChange = (event) => {
-    const obj = { ...sampleInfo };
+    let obj = { ...sampleInfo };
     obj[event.target.name] = event.target.value;
-    //inputErrors[event.target.name] = '';
-    //console.log(`address.currency_id obj = ${JSON.stringify(obj)}`);
-    const { currency_id, beneficiary_address, VAAI } = address;
     if (event.target.name === 'currency_id') {
-      address[obj.currency_id] = 'sygna:0x8000003c';
-      setSampleInfo({ currency_id, beneficiary_address, VAAI });
-      console.log(`address.currency_id obj = ${JSON.stringify(obj)}`);
+      obj = { ...obj, ...address[obj.currency_id] };
     }
+    setSampleInfo(obj);
   };
-
   const handleChange = (event) => {
-    const obj = { ...transferInfo };
+    let obj = { ...transferInfo };
     obj[event.target.name] = event.target.value;
     inputErrors[event.target.name] = '';
-    //console.log(`handleChange obj = ${JSON.stringify(obj)}`);
+    if (event.target.name === 'beneficiary_address') {
+      const abc = obj['beneficiary_address']; //=== obj.beneficiary_address
+      const n = abc.indexOf(':');
+      if (n >= 3) {
+        const currency = abc.substring(0, n).toLowerCase();
+        //const vaai = abc;
+        const decoded = bip21.decode(abc, currency);
+        const result = supportedCoins.find((data) => {
+          return data.currency_name.toLowerCase() === currency;
+        });
+        if (result) {
+          const coins = result.currency_id;
+          const person = decoded.options.personType;
+          const personType = person === 'NaturalPerson' ? 1 : 0;
+          obj = {
+            ...obj,
+            currency_id: coins,
+            PersonType: personType,
+            first_name: decoded.options.secondaryIdentifier,
+            last_name: decoded.options.primaryIdentifier,
+            legal_name: decoded.options.legalPersonName,
+            beneficiary_address: decoded.address,
+            beneficiary_vasp_code: decoded.options.vc,
+          };
+        }
+      }
+    }
+    if (event.target.name === 'currency_id') {
+      obj['beneficiary_address'] = '';
+    }
     setTransferInfo(obj);
-
-    //if
   };
   const handleStart = () => {
     setValue(1);
@@ -279,11 +302,9 @@ function Content(props) {
           return (
             <Beneficiary
               error={error}
-              //onShare={handleShare}
               onStart={handleStart}
               sampleInfo={sampleInfo}
               onChange={sampleChange}
-              //value={value}
               onError={handleError}
               inputErrors={inputErrors}
               setInputErrors={setInputErrors}
@@ -299,7 +320,7 @@ function Content(props) {
               signedData={signedData}
               clickCount={clickCount}
               activeStep={activeStep}
-              beneficiary_name={transferInfo.beneficiary_name}
+              transferInfo={transferInfo}
             />
           );
         }
@@ -311,14 +332,12 @@ function Content(props) {
             activeStep={activeStep}
             transferInfo={transferInfo}
             onChange={handleChange}
-            //value={value}
             clickAccept={clickAccept}
             disable={disable}
             onError={handleError}
             inputErrors={inputErrors}
             setInputErrors={setInputErrors}
             signedData={signedData}
-            tab={tab}
           />
         );
       default:
@@ -328,11 +347,11 @@ function Content(props) {
   }
   //增加一頁 0＆1 同一敘述
   const description = () => {
-    if (activeStep < 2) {
+    if (activeStep < 1) {
       return 'Prepare Data';
-    } else if (activeStep === 2) {
+    } else if (activeStep === 1) {
       return 'Verify Signature';
-    } else if (activeStep === 3) {
+    } else if (activeStep === 2) {
       return 'Confirm Transfer';
     } else {
       return 'Receive Certificate';
@@ -359,23 +378,10 @@ function Content(props) {
                     if (activeStep > 3) {
                       return;
                     }
-                    if (activeStep === 1) {
+                    if (activeStep === 1 || activeStep === 2) {
                       setActiveStep(0);
                       setClickCount(0);
-                      setValue(0);
-                    } else if (activeStep === 2 && clickCount === 0) {
-                      setActiveStep(1);
                       setValue(1);
-                    } else if (activeStep === 2 && clickCount === 1) {
-                      setActiveStep(1);
-                      setClickCount(0);
-                      setValue(1);
-                    } else if (activeStep === 3) {
-                      setActiveStep(activeStep - 1); //activeStep+-*/   === ==       =
-                      setClickCount(clickCount - 1); //clickCount === 0 => true / false
-                    } else if (activeStep > 0) {
-                      setActiveStep(activeStep - 1);
-                      setValue(value - 1);
                     }
                   }}
                 >
@@ -387,15 +393,6 @@ function Content(props) {
             </Stepper>
           </div>
           <Grid container spacing={3}>
-            {/* {activeStep < 2 ? (
-            <Grid item xs={12}>
-              <Test />
-            </Grid>
-          ) : (
-            <Grid item xs={12} md={8}>
-              <Test />
-            </Grid>
-            )} */}
             {/* VASP & Info */}
             <Grid item xs={12} md={8}>
               <Paper
@@ -403,10 +400,6 @@ function Content(props) {
                 className={(classes.root, classes.leftPadding)}
               >
                 <div>
-                  {/* <StyledTabs value={value} centered>
-                    <StyledTab label="Originator VASP" value={1} />
-                    <StyledTab label="Beneficiary VASP" value={0} />
-                  </StyledTabs> */}
                   <TabComponents value={value} tab={tab} />
                   <Typography className={classes.padding} />
                 </div>
