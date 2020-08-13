@@ -27,8 +27,7 @@ const deepBlue = {
 export default function PrivateInfo(props) {
   const classes = useStyles();
   const { transferInfo } = props;
-
-  const { first_name, last_name, legal_name } = transferInfo;
+  const { PersonType, first_name, last_name, legal_name } = transferInfo;
   const transactions = [
     { name: 'Name', detail: defaultOriginatorInfo.name },
     { name: 'Date of birth', detail: defaultOriginatorInfo.birth },
@@ -77,7 +76,7 @@ export default function PrivateInfo(props) {
           </Grid>
           <Grid item xs={8} md={9}>
             <Typography style={deepBlue}>
-              {!transferInfo.legal_name
+              {PersonType === 1
                 ? `${transferInfo.first_name} ${transferInfo.last_name}`
                 : transferInfo.legal_name}
             </Typography>

@@ -67,9 +67,7 @@ export default function Originator(props) {
             onChange={onChange}
             inputErrors={inputErrors}
           />
-          {/* 不等於 0 不等於 3 */}
           {activeStep === 3 ? null : <OriginInfo />}
-          {/* 不等於 0 不等於 3 */}
           {activeStep === 3 ? null : (
             <div className={classes.buttons}>
               <Button

@@ -131,7 +131,6 @@ function Bridge(props) {
       </Typography>
       <Paper elevation={0} className={classes.root}>
         <form action="">
-          {console.log(`activeStep = ${activeStep}`)}
           <OriVASP />
           <BeneVASP />
           <Result />
