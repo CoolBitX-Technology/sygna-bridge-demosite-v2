@@ -4,9 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
@@ -83,15 +80,12 @@ export default function Beneficiary(props) {
                   getOptionLabel={(option) => {
                     return option.title;
                   }}
-                  //getOptionSelected={(option) => option.title}
                   inputProps={{ 'aria-label': 'Without label' }}
                   classes={{ root: classes.root }}
                   renderInput={(params) => <TextField {...params} />}
-                  //renderOption={(option) => option.title}
                 />
               </Grid>
             </Grid>
-            console.log(`abc = ${currency_id}`);
             <Grid container spacing={2} className={classes.my_1}>
               <Grid item xs={12} sm={6}>
                 <Typography
@@ -135,6 +129,7 @@ export default function Beneficiary(props) {
                     variant="h6"
                     gutterBottom
                     className="title label_title"
+                    style={{ textTransform: 'none' }}
                   >
                     If the sending VASP supports Sygna Bridge service, please
                     copy the account information code or send the information

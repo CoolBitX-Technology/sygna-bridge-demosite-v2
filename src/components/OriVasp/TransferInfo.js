@@ -7,6 +7,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Input from '@material-ui/core/Input';
 import TabComponents from '../Tab';
 import { supportedCoins } from '../../config/currency';
 
@@ -62,6 +63,19 @@ export default function TransInfo(props) {
     tab1: 'Natural Person',
     tab2: 'Legal Person',
   };
+
+  const sorted = supportedCoins.sort(function (a, b) {
+    const va = a.currency_symbol.toUpperCase();
+    const vb = b.currency_symbol.toUpperCase();
+    if (va < vb) {
+      return -1;
+    }
+    if (va > vb) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
 
   const getError = (field) => inputErrors[field];
   function NPerson() {
@@ -219,20 +233,6 @@ export default function TransInfo(props) {
       </div>
     );
   }
-  console.log(`transferInfo currency_id = ${currency_id}`);
-
-  const sorted = supportedCoins.sort(function (a, b) {
-    const va = a.currency_symbol.toUpperCase();
-    const vb = b.currency_symbol.toUpperCase();
-    if (va < vb) {
-      return -1;
-    }
-    if (va > vb) {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
   return (
     <React.Fragment>
       <div style={margin}>
@@ -245,8 +245,8 @@ export default function TransInfo(props) {
               currency
             </Typography>
             <Autocomplete
+              error={!!getError('currency_id')}
               fullWidth
-              required
               disabled={disable}
               id="currency_id"
               value={
@@ -272,7 +272,13 @@ export default function TransInfo(props) {
               }}
               inputProps={{ 'aria-label': 'Without label' }}
               classes={{ root: classes.root }}
-              renderInput={(params) => <TextField {...params} />}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  required
+                  //error={!currency_id}
+                />
+              )}
             />
           </Grid>
         </Grid>
