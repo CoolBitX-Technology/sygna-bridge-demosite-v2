@@ -29,7 +29,6 @@ export default function Originator(props) {
     signedData,
   } = props;
 
-  //const [error, hasError] = React.useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -42,7 +41,7 @@ export default function Originator(props) {
         acc[key] = form.elements[key].validationMessage;
         return acc;
       },
-      {},
+      {}
     );
     if (!isValid) {
       setInputErrors(validationMessages);
@@ -69,8 +68,8 @@ export default function Originator(props) {
             inputErrors={inputErrors}
           />
           {activeStep === 3 ? null : <OriginInfo />}
-          <div className={classes.buttons}>
-            {activeStep === 3 ? null : (
+          {activeStep === 3 ? null : (
+            <div className={classes.buttons}>
               <Button
                 variant="contained"
                 type={'submit'}
@@ -78,8 +77,8 @@ export default function Originator(props) {
               >
                 Send
               </Button>
-            )}
-          </div>
+            </div>
+          )}
         </form>
       </main>
     </React.Fragment>
