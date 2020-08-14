@@ -37,12 +37,12 @@ export default function TabComponents(props) {
         <StyledTab
           label={tab.tab1}
           value={1}
-          disabled={disabled && value == 0}
+          disabled={disabled && value === 0}
         />
         <StyledTab
           label={tab.tab2}
           value={0}
-          disabled={disabled && value == 1}
+          disabled={disabled && value === 1}
         />
       </StyledTabs>
     </div>
