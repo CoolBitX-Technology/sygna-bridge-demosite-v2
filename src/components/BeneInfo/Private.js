@@ -1,41 +1,41 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import { defaultOriginatorInfo } from "../../config";
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { defaultOriginatorInfo } from '../../config';
 
 const useStyles = makeStyles((theme) => ({
   padding: {
-    padding: "0 10px",
+    padding: '0 10px',
   },
   buttons: {
-    paddingTop: "30px",
-    textAlign: "center",
+    paddingTop: '30px',
+    textAlign: 'center',
   },
 }));
 
 const marginTop = {
-  marginTop: "30px",
+  marginTop: '30px',
 };
 
 const deepBlue = {
-  borderColor: "#006FB1",
-  color: "#006FB1",
+  borderColor: '#006FB1',
+  color: '#006FB1',
 };
 
 export default function PrivateInfo(props) {
   const classes = useStyles();
-  const { beneficiary_name } = props;
-
+  const { transferInfo } = props;
+  const { PersonType, first_name, last_name, legal_name } = transferInfo;
   const transactions = [
-    { name: "Name", detail: defaultOriginatorInfo.name },
-    { name: "Date of birth", detail: defaultOriginatorInfo.birth },
-    { name: "Place of birth", detail: defaultOriginatorInfo.place_of_birth },
-    { name: "Physical Address", detail: defaultOriginatorInfo.phy_address },
-    { name: "Unique Identity", detail: defaultOriginatorInfo.identity },
+    { name: 'Name', detail: defaultOriginatorInfo.name },
+    { name: 'Date of birth', detail: defaultOriginatorInfo.birth },
+    { name: 'Place of birth', detail: defaultOriginatorInfo.place_of_birth },
+    { name: 'Physical Address', detail: defaultOriginatorInfo.phy_address },
+    { name: 'Unique Identity', detail: defaultOriginatorInfo.identity },
     {
-      name: "National Identity Number",
+      name: 'National Identity Number',
       detail: defaultOriginatorInfo.identity_num,
     },
   ];
@@ -75,7 +75,11 @@ export default function PrivateInfo(props) {
             </Typography>
           </Grid>
           <Grid item xs={8} md={9}>
-            <Typography style={deepBlue}>{beneficiary_name}</Typography>
+            <Typography style={deepBlue}>
+              {PersonType === 1
+                ? `${transferInfo.first_name} ${transferInfo.last_name}`
+                : transferInfo.legal_name}
+            </Typography>
           </Grid>
         </Grid>
       </div>

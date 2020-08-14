@@ -46,7 +46,7 @@ function Bridge(props) {
     const originator_vasp_code = _.get(
       signedData,
       ['transaction', 'originator_vasp', 'vasp_code'],
-      '-',
+      '-'
     );
 
     return (
@@ -69,7 +69,7 @@ function Bridge(props) {
     const beneficiary_vasp_code = _.get(
       signedData,
       ['transaction', 'beneficiary_vasp', 'vasp_code'],
-      '-',
+      '-'
     );
     return (
       <div className={classes.marginBottom}>
@@ -131,7 +131,6 @@ function Bridge(props) {
       </Typography>
       <Paper elevation={0} className={classes.root}>
         <form action="">
-          {/* {console.log(`o_vasp = ${o_vasp}`)} */}
           <OriVASP />
           <BeneVASP />
           <Result />

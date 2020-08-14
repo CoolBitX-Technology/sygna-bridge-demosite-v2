@@ -3,9 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Input from '@material-ui/core/Input';
+import TabComponents from '../Tab';
+import { supportedCoins } from '../../config/currency';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,17 +21,23 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
-  paper: {
-    padding: theme.spacing(4),
-  },
-  capitalize: {
-    textTransform: 'capitalize',
-    letterSpacing: '0.05rem',
-    color: '#42826B',
-    fontWeight: '600',
-    fontFamily: 'Open Sans',
-  },
 }));
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Typography>{children}</Typography>}
+    </div>
+  );
+}
 
 export default function TransInfo(props) {
   const classes = useStyles();
@@ -40,14 +50,189 @@ export default function TransInfo(props) {
   const { disable, transferInfo, onChange, inputErrors } = props;
   const {
     currency_id,
-    amount,
-    beneficiary_name,
-    beneficiary_vasp_code,
     beneficiary_address,
+    first_name,
+    last_name,
+    beneficiary_vasp_code,
+    amount,
+    legal_name,
+    PersonType,
   } = transferInfo;
 
-  const getError = (field) => inputErrors[field];
+  const tab = {
+    tab1: 'Natural Person',
+    tab2: 'Legal Person',
+  };
 
+  const sorted = supportedCoins.sort(function (a, b) {
+    const va = a.currency_symbol.toUpperCase();
+    const vb = b.currency_symbol.toUpperCase();
+    if (va < vb) {
+      return -1;
+    }
+    if (va > vb) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
+  const getError = (field) => inputErrors[field];
+  function NPerson() {
+    return (
+      <div>
+        <TabPanel value={PersonType} index={1}>
+          <Grid container spacing={2} className={classes.my_1}>
+            <Grid item xs={12} sm={6}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                className="title label_title"
+              >
+                first name
+              </Typography>
+              <TextField
+                required
+                id="first_name"
+                name="first_name"
+                type="text"
+                fullWidth
+                value={first_name}
+                disabled={disable}
+                onChange={onChange}
+                helperText={getError('first_name')}
+                error={!!getError('first_name')}
+              />
+            </Grid>
+          </Grid>
+          <Grid container spacing={2} className={classes.my_1}>
+            <Grid item xs={12} sm={6}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                className="title label_title"
+              >
+                last name
+              </Typography>
+              <TextField
+                required
+                id="last_name"
+                name="last_name"
+                type="text"
+                fullWidth
+                value={last_name}
+                disabled={disable}
+                onChange={onChange}
+                helperText={getError('last_name')}
+                error={!!getError('last_name')}
+              />
+            </Grid>
+          </Grid>
+          <Grid container spacing={2} className={classes.my_1}>
+            <Grid item xs={12} sm={6}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                className="title label_title"
+              >
+                VASP Code
+              </Typography>
+              <FormControl
+                fullWidth
+                required
+                error={!!getError('beneficiary_vasp_code')}
+              >
+                <Select
+                  id="beneficiary_vasp_code"
+                  name="beneficiary_vasp_code"
+                  value={beneficiary_vasp_code}
+                  onChange={onChange}
+                  displayEmpty
+                  inputProps={{ 'aria-label': 'Without label' }}
+                  classes={{ root: classes.root }}
+                  disabled={disable}
+                  helperText={getError('beneficiary_vasp_code')}
+                >
+                  <MenuItem value="" disabled>
+                    Select
+                  </MenuItem>
+                  <MenuItem value={'BTOPTWTP'}>BTOPTWTP</MenuItem>
+                  <MenuItem value={'SBIEJPTK'}>SBIEJPTK</MenuItem>
+                  <MenuItem value={'BTSNKRSE'}>BTSNKRSE</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+        </TabPanel>
+      </div>
+    );
+  }
+  function LPerson() {
+    return (
+      <div>
+        <TabPanel value={PersonType} index={0}>
+          <Grid container spacing={2} className={classes.my_1}>
+            <Grid item xs={12} sm={6}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                className="title label_title"
+              >
+                Legal Name
+              </Typography>
+              <TextField
+                required
+                id="legal_name"
+                name="legal_name"
+                type="text"
+                fullWidth
+                value={legal_name}
+                disabled={disable}
+                onChange={onChange}
+                helperText={getError('legal_name')}
+                error={!!getError('legal_name')}
+              />
+            </Grid>
+          </Grid>
+          <Grid container spacing={2} className={classes.my_1}>
+            <Grid item xs={12} sm={6}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                className="title label_title"
+              >
+                VASP Code
+              </Typography>
+              <FormControl
+                fullWidth
+                required
+                error={!!getError('beneficiary_vasp_code')}
+              >
+                <Select
+                  id="beneficiary_vasp_code"
+                  name="beneficiary_vasp_code"
+                  value={beneficiary_vasp_code}
+                  onChange={onChange}
+                  displayEmpty
+                  inputProps={{ 'aria-label': 'Without label' }}
+                  classes={{ root: classes.root }}
+                  disabled={disable}
+                  helperText={getError('beneficiary_vasp_code')}
+                >
+                  <MenuItem value="" disabled>
+                    Select
+                  </MenuItem>
+                  <MenuItem value={'BTOPTWTP'}>BTOPTWTP</MenuItem>
+                  <MenuItem value={'SBIEJPTK'}>SBIEJPTK</MenuItem>
+                  <MenuItem value={'BTSNKRSE'}>BTSNKRSE</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+        </TabPanel>
+      </div>
+    );
+  }
   return (
     <React.Fragment>
       <div style={margin}>
@@ -59,28 +244,45 @@ export default function TransInfo(props) {
             <Typography variant="h6" gutterBottom className="title label_title">
               currency
             </Typography>
-            <FormControl fullWidth required error={!!getError('currency_id')}>
-              <Select
-                id="currency_id"
-                name="currency_id"
-                value={currency_id}
-                onChange={onChange}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-                classes={{ root: classes.root }}
-                disabled={disable}
-                helperText={getError('currency')}
-              >
-                <MenuItem value="" disabled>
-                  Select
-                </MenuItem>
-                <MenuItem value={'sygna:0x80000000'}>BTC</MenuItem>
-                <MenuItem value={'sygna:0x8000003c'}>ETH</MenuItem>
-              </Select>
-            </FormControl>
+            <Autocomplete
+              error={!!getError('currency_id')}
+              fullWidth
+              disabled={disable}
+              id="currency_id"
+              value={
+                supportedCoins.find(
+                  (currency) => currency.currency_id === currency_id
+                ) || ''
+              }
+              onChange={(_, v) => {
+                console.log(`onChangeonChange`);
+                onChange({
+                  target: {
+                    name: 'currency_id',
+                    value: v ? v.currency_id : '',
+                  },
+                });
+              }}
+              options={sorted}
+              getOptionLabel={(option) => {
+                if (!option) {
+                  return '';
+                }
+                return option.currency_symbol;
+              }}
+              inputProps={{ 'aria-label': 'Without label' }}
+              classes={{ root: classes.root }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  required
+                  //error={!currency_id}
+                />
+              )}
+            />
           </Grid>
         </Grid>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} className={classes.my_1}>
           <Grid item xs={12} sm={6}>
             <Typography variant="h6" gutterBottom className="title label_title">
               Amount
@@ -101,72 +303,15 @@ export default function TransInfo(props) {
             />
           </Grid>
         </Grid>
-        <div style={marginTop}>
-          <Typography variant="h6" gutterBottom className="title">
-            beneficiary info
-          </Typography>
-        </div>
         <Grid container spacing={2} className={classes.my_1}>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="h6" gutterBottom className="title label_title">
-              Name
-            </Typography>
-            <TextField
-              required
-              id="beneficiary_name"
-              name="beneficiary_name"
-              type="text"
-              fullWidth
-              value={beneficiary_name}
-              disabled={disable}
-              onChange={onChange}
-              helperText={getError('beneficiary_name')}
-              error={!!getError('beneficiary_name')}
-            />
-          </Grid>
-        </Grid>
-        <Grid container spacing={2} className={classes.my_1}>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="h6" gutterBottom className="title label_title">
-              beneficiary VASP Code
-            </Typography>
-            <FormControl
-              fullWidth
-              required
-              error={!!getError('beneficiary_vasp_code')}
-            >
-              <Select
-                id="beneficiary_vasp_code"
-                name="beneficiary_vasp_code"
-                value={beneficiary_vasp_code}
-                onChange={onChange}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-                classes={{ root: classes.root }}
-                disabled={disable}
-                helperText={getError('beneficiary_vasp_code')}
-              >
-                <MenuItem value="" disabled>
-                  Select
-                </MenuItem>
-                <MenuItem value={'VASPUSNY1'}>
-                  VASPUSNY1 (VASP in NY, USA)
-                </MenuItem>
-                <MenuItem value={'VAPSJPJT1'}>
-                  VAPSJPJT1 (VASP in Tokyo, Japan)
-                </MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
-              beneficiary virtual asset address
+              beneficiary virtual asset address (compatible with VAAI)
             </Typography>
             <TextField
               required
               id="beneficiary_address"
               name="beneficiary_address"
-              placeholder="0x0b696FEB926675a2f8B55644A1669b43b9924C03"
               fullWidth
               value={beneficiary_address}
               disabled={disable}
@@ -176,6 +321,30 @@ export default function TransInfo(props) {
             />
           </Grid>
         </Grid>
+        <div style={marginTop}>
+          <Typography variant="h6" gutterBottom className="title">
+            beneficiary info
+          </Typography>
+          <Grid container>
+            <Grid item xs={12} sm={6}>
+              <TabComponents
+                value={PersonType}
+                tab={tab}
+                disabled={disable}
+                onChange={(_, newValue) => {
+                  onChange({
+                    target: {
+                      name: 'PersonType',
+                      value: newValue,
+                    },
+                  });
+                }}
+              />
+            </Grid>
+          </Grid>
+          {NPerson()}
+          {LPerson()}
+        </div>
       </div>
     </React.Fragment>
   );
