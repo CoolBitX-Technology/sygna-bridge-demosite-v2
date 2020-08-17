@@ -43,14 +43,7 @@ const TestBlu = withStyles({
 
 export default function BeneInfo(props) {
   const classes = useStyles();
-  const {
-    onAccept,
-    onReject,
-    signedData,
-    clickCount,
-    transferInfo,
-    activeStep,
-  } = props;
+  const { onAccept, onReject, signedData, clickCount, transferInfo } = props;
   const {
     originator_vasp,
     beneficiary_vasp,
