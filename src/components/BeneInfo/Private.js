@@ -27,7 +27,7 @@ const deepBlue = {
 export default function PrivateInfo(props) {
   const classes = useStyles();
   const { transferInfo } = props;
-  const { PersonType, first_name, last_name, legal_name } = transferInfo;
+  const { PersonType } = transferInfo;
   const transactions = [
     { name: 'Name', detail: defaultOriginatorInfo.name },
     { name: 'Date of birth', detail: defaultOriginatorInfo.birth },

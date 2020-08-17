@@ -80,7 +80,6 @@ export default function Beneficiary(props) {
                   getOptionLabel={(option) => {
                     return option.title;
                   }}
-                  inputProps={{ 'aria-label': 'Without label' }}
                   classes={{ root: classes.root }}
                   renderInput={(params) => <TextField {...params} />}
                 />
