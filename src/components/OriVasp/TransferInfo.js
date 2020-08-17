@@ -77,6 +77,36 @@ export default function TransInfo(props) {
   });
 
   const getError = (field) => inputErrors[field];
+  function SelectInput() {
+    return (
+      <div>
+        <FormControl
+          fullWidth
+          required
+          error={!!getError('beneficiary_vasp_code')}
+        >
+          <Select
+            id="beneficiary_vasp_code"
+            name="beneficiary_vasp_code"
+            value={beneficiary_vasp_code}
+            onChange={onChange}
+            displayEmpty
+            inputProps={{ 'aria-label': 'Without label' }}
+            classes={{ root: classes.root }}
+            disabled={disable}
+            helperText={getError('beneficiary_vasp_code')}
+          >
+            <MenuItem value="" disabled>
+              Select
+            </MenuItem>
+            <MenuItem value={'BTOPTWTP'}>BTOPTWTP, BitoPro</MenuItem>
+            <MenuItem value={'SBIEJPTK'}>SBIEJPTK, SBIVCT</MenuItem>
+            <MenuItem value={'BTSNKRSE'}>BTSNKRSE, BitSonic</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+    );
+  }
   function NPerson() {
     return (
       <div>
@@ -136,30 +166,7 @@ export default function TransInfo(props) {
               >
                 VASP Code
               </Typography>
-              <FormControl
-                fullWidth
-                required
-                error={!!getError('beneficiary_vasp_code')}
-              >
-                <Select
-                  id="beneficiary_vasp_code"
-                  name="beneficiary_vasp_code"
-                  value={beneficiary_vasp_code}
-                  onChange={onChange}
-                  displayEmpty
-                  inputProps={{ 'aria-label': 'Without label' }}
-                  classes={{ root: classes.root }}
-                  disabled={disable}
-                  helperText={getError('beneficiary_vasp_code')}
-                >
-                  <MenuItem value="" disabled>
-                    Select
-                  </MenuItem>
-                  <MenuItem value={'BTOPTWTP'}>BTOPTWTP</MenuItem>
-                  <MenuItem value={'SBIEJPTK'}>SBIEJPTK</MenuItem>
-                  <MenuItem value={'BTSNKRSE'}>BTSNKRSE</MenuItem>
-                </Select>
-              </FormControl>
+              {SelectInput()}
             </Grid>
           </Grid>
         </TabPanel>
@@ -202,30 +209,7 @@ export default function TransInfo(props) {
               >
                 VASP Code
               </Typography>
-              <FormControl
-                fullWidth
-                required
-                error={!!getError('beneficiary_vasp_code')}
-              >
-                <Select
-                  id="beneficiary_vasp_code"
-                  name="beneficiary_vasp_code"
-                  value={beneficiary_vasp_code}
-                  onChange={onChange}
-                  displayEmpty
-                  inputProps={{ 'aria-label': 'Without label' }}
-                  classes={{ root: classes.root }}
-                  disabled={disable}
-                  helperText={getError('beneficiary_vasp_code')}
-                >
-                  <MenuItem value="" disabled>
-                    Select
-                  </MenuItem>
-                  <MenuItem value={'BTOPTWTP'}>BTOPTWTP</MenuItem>
-                  <MenuItem value={'SBIEJPTK'}>SBIEJPTK</MenuItem>
-                  <MenuItem value={'BTSNKRSE'}>BTSNKRSE</MenuItem>
-                </Select>
-              </FormControl>
+              {SelectInput()}
             </Grid>
           </Grid>
         </TabPanel>
