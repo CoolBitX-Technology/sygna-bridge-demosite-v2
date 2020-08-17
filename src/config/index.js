@@ -16,7 +16,7 @@ const currencyItems = [
 
 const defaultOriginatorInfo = {
   name: 'Alice Andrews',
-  vasp_code: 'SBIEJPTK, SBIVCT',
+  vasp_code: 'SBIEJPTK',
   address: '0x05ECAf39376088D7C8bF1aCc06018D7C8bF1aCc0601',
   phy_address: 'Bahnhofstrasse 665, 8001 Zurich, Switzerland',
   birth: '1975-05-02',
