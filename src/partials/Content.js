@@ -150,9 +150,9 @@ function Content(props) {
     currency_id: 'sygna:0x80000000',
     first_name: 'Bob',
     last_name: 'Baxter',
-    beneficiary_address: '0x0b696FEB926675a2f8B55644A1669b43b9924C03',
+    beneficiary_address: '1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY',
     VAAI:
-      'bitcoin:0x0b696FEB926675a2f8B55644A1669b43b9924C03?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=BTSNKRSE',
+      'bitcoin:1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=BTSNKRSE',
     beneficiary_vasp_code: 'BTSNKRSE',
   });
   const [transferInfo, setTransferInfo] = React.useState({
