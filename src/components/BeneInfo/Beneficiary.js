@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '30px',
     textAlign: 'center',
   },
-  my_1: {
+  marginY_1: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
@@ -46,13 +46,13 @@ export default function Beneficiary(props) {
 
   return (
     <React.Fragment>
-      <main className={classes.layout}>
+      <div className={classes.layout}>
         <form autoComplete="off" noValidate>
           <div style={margin}>
             <Typography variant="h6" className="title">
               transfer info
             </Typography>
-            <Grid container spacing={2} className={classes.my_1}>
+            <Grid container spacing={2} className={classes.marginY_1}>
               <Grid item xs={12} sm={6}>
                 <Typography
                   variant="h6"
@@ -85,7 +85,7 @@ export default function Beneficiary(props) {
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2} className={classes.my_1}>
+            <Grid container spacing={2} className={classes.marginY_1}>
               <Grid item xs={12} sm={6}>
                 <Typography
                   variant="h6"
@@ -136,7 +136,7 @@ export default function Beneficiary(props) {
                   </Typography>
                 </Grid>
               </Grid>
-              <Grid container spacing={2} className={classes.my_1}>
+              <Grid container spacing={2} className={classes.marginY_1}>
                 <Grid item xs={12} sm={6}>
                   <Typography variant="h6" gutterBottom className="title">
                     virtual asset account Information (VAAI)
@@ -174,7 +174,7 @@ export default function Beneficiary(props) {
               <Typography variant="h6" gutterBottom className="title">
                 natural person
               </Typography>
-              <Grid container spacing={2} className={classes.my_1}>
+              <Grid container spacing={2} className={classes.marginY_1}>
                 <Grid item xs={12} sm={6}>
                   <Typography
                     variant="h6"
@@ -193,7 +193,7 @@ export default function Beneficiary(props) {
                   />
                 </Grid>
               </Grid>
-              <Grid container spacing={2} className={classes.my_1}>
+              <Grid container spacing={2} className={classes.marginY_1}>
                 <Grid item xs={12} sm={6}>
                   <Typography
                     variant="h6"
@@ -212,7 +212,7 @@ export default function Beneficiary(props) {
                   />
                 </Grid>
               </Grid>
-              <Grid container spacing={2} className={classes.my_1}>
+              <Grid container spacing={2} className={classes.marginY_1}>
                 <Grid item xs={12} sm={6}>
                   <Typography
                     variant="h6"
@@ -244,7 +244,7 @@ export default function Beneficiary(props) {
             </Button>
           </div>
         </form>
-      </main>
+      </div>
     </React.Fragment>
   );
 }

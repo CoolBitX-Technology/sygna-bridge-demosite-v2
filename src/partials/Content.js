@@ -2,14 +2,8 @@ import crypto from 'crypto';
 import React from 'react';
 import bip21 from 'bip21';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import StepConnector from '@material-ui/core/StepConnector';
-import clsx from 'clsx';
-import Check from '@material-ui/icons/Check';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
 import * as bridgeUtil from '@sygna/bridge-util';
 import Bridge from '../components/Bridge';
@@ -20,29 +14,22 @@ import {
   FAKE_PRIVATE_KEY,
   FAKE_PUBLIC_KEY,
   address,
+  OriAddress,
 } from '../config/index';
 import { supportedCoins } from '../config/currency';
 import 'typeface-noto-sans';
 import 'typeface-open-sans';
 import Beneficiary from '../components/BeneInfo/Beneficiary';
 import TabComponents from '../components/Tab';
+import StepBlock from '../components/Step';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    //flexGrow: 1,
     height: '100%',
     borderRadius: '0',
   },
   stepBlock: {
     padding: '22px 0 33px',
-  },
-  stepStyle: {
-    width: '100%',
-    maxWidth: '640px',
-    margin: '0 auto',
-    padding: '0',
-    marginTop: '22px',
-    backgroundColor: 'transparent',
   },
   leftPadding: {
     padding: '20px',
@@ -51,96 +38,10 @@ const useStyles = makeStyles((theme) => ({
   rightPadding: {
     padding: '20px 30px',
   },
-  textCenter: {
-    textAlign: 'center',
-  },
 }));
-
-const QontoConnector = withStyles({
-  alternativeLabel: {
-    top: 12,
-    left: 'calc(-50% + 16px)',
-    right: 'calc(50% + 16px)',
-  },
-  active: {
-    '& $line': {
-      borderColor: '#42826B',
-    },
-  },
-  completed: {
-    '& $line': {
-      borderColor: '#42826B',
-    },
-  },
-  line: {
-    borderColor: '#9FB6AE',
-    borderTopWidth: 5,
-    borderRadius: 1,
-  },
-})(StepConnector);
-
-const useQontoStepIconStyles = makeStyles({
-  root: {
-    color: '#9FB6AE',
-    display: 'flex',
-    height: 30,
-    alignItems: 'center',
-  },
-  active: {
-    color: '#42826B',
-  },
-  circle: {
-    width: 30,
-    height: 30,
-    borderRadius: '50%',
-    backgroundColor: 'currentColor',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  completed: {
-    color: '#fff',
-    zIndex: 1,
-    fontSize: 18,
-    width: 30,
-    height: 30,
-    backgroundColor: '#104935',
-    borderRadius: '50%',
-    svg: {
-      width: 24,
-      height: 24,
-    },
-  },
-});
-
-function QontoStepIcon(props) {
-  const classes = useQontoStepIconStyles();
-  const { active, completed } = props;
-  return (
-    <div
-      className={clsx(classes.root, {
-        [classes.active]: active,
-      })}
-    >
-      {completed ? (
-        <div className={classes.circle}>
-          <Check className={classes.completed} />
-        </div>
-      ) : (
-        <div className={classes.circle} />
-      )}
-    </div>
-  );
-}
-
-function getSteps() {
-  return ['', '', ''];
-}
-
 function Content(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const steps = getSteps();
   const [value, setValue] = React.useState(0);
   const tab = {
     tab1: 'Originator VASP',
@@ -156,7 +57,7 @@ function Content(props) {
     beneficiary_vasp_code: 'BTSNKRSE',
   });
   const [transferInfo, setTransferInfo] = React.useState({
-    currency_id: '',
+    currency_id: 'sygna:0x80000000',
     first_name: '',
     last_name: '',
     beneficiary_address: '',
@@ -164,6 +65,7 @@ function Content(props) {
     amount: '',
     legal_name: '',
     PersonType: 1,
+    originator_address: '32tAGdxdU1tucMtwpAdTm9Fy3te1QYv7pG',
   });
   const [clickCount, setClickCount] = React.useState(0);
   const [clickAccept, setClickAccept] = React.useState(false);
@@ -188,7 +90,6 @@ function Content(props) {
       const n = abc.indexOf(':');
       if (n >= 3) {
         const currency = abc.substring(0, n).toLowerCase();
-        //const vaai = abc;
         const decoded = bip21.decode(abc, currency);
         const result = supportedCoins.find((data) => {
           return data.currency_name.toLowerCase() === currency;
@@ -207,17 +108,23 @@ function Content(props) {
             beneficiary_address: decoded.address,
             beneficiary_vasp_code: decoded.options.vc,
           };
+          obj = { ...obj, ...OriAddress[obj.currency_id] };
         }
       }
     }
     if (event.target.name === 'currency_id') {
       obj['beneficiary_address'] = '';
+      obj = { ...obj, ...OriAddress[obj.currency_id] };
     }
     setTransferInfo(obj);
   };
+  const handleStep = () => {
+    setActiveStep(0);
+    setClickCount(0);
+    setValue(1);
+  };
   const handleStart = () => {
     setValue(1);
-    //setActiveStep(activeStep + 1);
   };
   const handleSend = () => {
     setValue(0);
@@ -244,7 +151,7 @@ function Content(props) {
           vasp_code: defaultOriginatorInfo.vasp_code,
           addrs: [
             {
-              address: defaultOriginatorInfo.address,
+              address: transferInfo.originator_address,
             },
           ],
         },
@@ -345,52 +252,12 @@ function Content(props) {
         console.log('Unknown step');
     }
   }
-  //增加一頁 0＆1 同一敘述
-  const description = () => {
-    if (activeStep < 1) {
-      return 'Prepare Data';
-    } else if (activeStep === 1) {
-      return 'Verify Signature';
-    } else if (activeStep === 2) {
-      return 'Confirm Transfer';
-    } else {
-      return 'Receive Certificate';
-    }
-  };
   return (
     <React.Fragment>
       <div className="container">
         <div className={classes.root}>
           <div className={classes.stepBlock}>
-            <Typography variant="h5" className={classes.textCenter}>
-              {description()}
-            </Typography>
-            <Stepper
-              alternativeLabel
-              activeStep={activeStep}
-              connector={<QontoConnector />}
-              className={classes.stepStyle}
-            >
-              {steps.map((label, index) => (
-                <Step
-                  key={index.toString()}
-                  onClick={() => {
-                    if (activeStep > 3) {
-                      return;
-                    }
-                    if (activeStep === 1 || activeStep === 2) {
-                      setActiveStep(0);
-                      setClickCount(0);
-                      setValue(1);
-                    }
-                  }}
-                >
-                  <StepLabel StepIconComponent={QontoStepIcon}>
-                    {label}
-                  </StepLabel>
-                </Step>
-              ))}
-            </Stepper>
+            {<StepBlock activeStep={activeStep} onBackStep={handleStep} />}
           </div>
           <Grid container spacing={3}>
             {/* VASP & Info */}

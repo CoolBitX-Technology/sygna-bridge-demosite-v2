@@ -1,5 +1,4 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Tab, Tabs } from '@material-ui/core';
 
@@ -48,7 +47,3 @@ export default function TabComponents(props) {
     </div>
   );
 }
-
-// TabComponents.propTypes = {
-//   disabled: PropTypes.bool.isRequired,
-// };

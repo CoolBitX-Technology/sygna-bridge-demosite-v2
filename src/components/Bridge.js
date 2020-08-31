@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 function Bridge(props) {
   const classes = useStyles();
   const { activeStep, clickAccept, signedData } = props;
-  console.log(`signedData = ${JSON.stringify(signedData)}`);
+  //console.log(`signedData = ${JSON.stringify(signedData)}`);
   function OriVASP() {
     const classes = inputStyles();
     const originator_vasp_code = _.get(
@@ -79,7 +79,6 @@ function Bridge(props) {
         <TextField
           id="beneficiary_vasp_code"
           name="beneficiary_vasp_code"
-          defaultValue="-"
           value={beneficiary_vasp_code}
           fullWidth
           InputProps={{ readOnly: true }}
@@ -91,7 +90,6 @@ function Bridge(props) {
     const classes = inputStyles();
     const value = () => {
       if (activeStep === 3 && clickAccept === true) {
-        //return {a:"ACCEPT",c:'a'};
         return 'ACCEPT';
       } else if (activeStep === 3 && clickAccept !== true) {
         return 'REJECT';

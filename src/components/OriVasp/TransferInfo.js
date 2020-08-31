@@ -7,6 +7,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import TabComponents from '../Tab';
 import { supportedCoins } from '../../config/currency';
 
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#222b45',
     boxSizing: 'border-box',
   },
-  my_1: {
+  marginY_1: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
@@ -33,7 +34,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Typography>{children}</Typography>}
+      {value === index && <div>{children}</div>}
     </div>
   );
 }
@@ -91,10 +92,9 @@ export default function TransInfo(props) {
             value={beneficiary_vasp_code}
             onChange={onChange}
             displayEmpty
-            inputProps={{ 'aria-label': 'Without label' }}
+            //inputProps={{ 'aria-label': 'Without label' }}
             classes={{ root: classes.root }}
             disabled={disable}
-            helperText={getError('beneficiary_vasp_code')}
           >
             <MenuItem value="" disabled>
               Select
@@ -103,6 +103,9 @@ export default function TransInfo(props) {
             <MenuItem value={'SBIEJPTK'}>SBIEJPTK, SBIVCT</MenuItem>
             <MenuItem value={'BTSNKRSE'}>BTSNKRSE, BitSonic</MenuItem>
           </Select>
+          {getError('beneficiary_vasp_code') ? (
+            <FormHelperText>{getError('beneficiary_vasp_code')}</FormHelperText>
+          ) : null}
         </FormControl>
       </div>
     );
@@ -111,7 +114,7 @@ export default function TransInfo(props) {
     return (
       <div>
         <TabPanel value={PersonType} index={1}>
-          <Grid container spacing={2} className={classes.my_1}>
+          <Grid container spacing={2} className={classes.marginY_1}>
             <Grid item xs={12} sm={6}>
               <Typography
                 variant="h6"
@@ -134,7 +137,7 @@ export default function TransInfo(props) {
               />
             </Grid>
           </Grid>
-          <Grid container spacing={2} className={classes.my_1}>
+          <Grid container spacing={2} className={classes.marginY_1}>
             <Grid item xs={12} sm={6}>
               <Typography
                 variant="h6"
@@ -157,7 +160,12 @@ export default function TransInfo(props) {
               />
             </Grid>
           </Grid>
-          <Grid container spacing={2} className={classes.my_1}>
+          <Grid
+            container
+            spacing={2}
+            className={classes.marginY_1}
+            component="div"
+          >
             <Grid item xs={12} sm={6}>
               <Typography
                 variant="h6"
@@ -177,7 +185,7 @@ export default function TransInfo(props) {
     return (
       <div>
         <TabPanel value={PersonType} index={0}>
-          <Grid container spacing={2} className={classes.my_1}>
+          <Grid container spacing={2} className={classes.marginY_1}>
             <Grid item xs={12} sm={6}>
               <Typography
                 variant="h6"
@@ -192,7 +200,7 @@ export default function TransInfo(props) {
                 name="legal_name"
                 type="text"
                 fullWidth
-                value={legal_name}
+                value={legal_name || ''}
                 disabled={disable}
                 onChange={onChange}
                 helperText={getError('legal_name')}
@@ -200,7 +208,7 @@ export default function TransInfo(props) {
               />
             </Grid>
           </Grid>
-          <Grid container spacing={2} className={classes.my_1}>
+          <Grid container spacing={2} className={classes.marginY_1}>
             <Grid item xs={12} sm={6}>
               <Typography
                 variant="h6"
@@ -222,13 +230,13 @@ export default function TransInfo(props) {
         <Typography variant="h6" className="title">
           transfer info
         </Typography>
-        <Grid container spacing={2} className={classes.my_1}>
+        <Grid container spacing={2} className={classes.marginY_1}>
           <Grid item xs={12} sm={6}>
             <Typography variant="h6" gutterBottom className="title label_title">
               currency
             </Typography>
             <Autocomplete
-              error={!!getError('currency_id')}
+              error={getError('currency_id') && getError('currency_id')}
               fullWidth
               disabled={disable}
               id="currency_id"
@@ -238,7 +246,6 @@ export default function TransInfo(props) {
                 ) || ''
               }
               onChange={(_, v) => {
-                console.log(`onChangeonChange`);
                 onChange({
                   target: {
                     name: 'currency_id',
@@ -253,19 +260,12 @@ export default function TransInfo(props) {
                 }
                 return option.currency_symbol;
               }}
-              inputProps={{ 'aria-label': 'Without label' }}
               classes={{ root: classes.root }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  required
-                  //error={!currency_id}
-                />
-              )}
+              renderInput={(params) => <TextField {...params} required />}
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.my_1}>
+        <Grid container spacing={2} className={classes.marginY_1}>
           <Grid item xs={12} sm={6}>
             <Typography variant="h6" gutterBottom className="title label_title">
               Amount
@@ -286,7 +286,7 @@ export default function TransInfo(props) {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.my_1}>
+        <Grid container spacing={2} className={classes.marginY_1}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
               beneficiary virtual asset address (compatible with VAAI)

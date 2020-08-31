@@ -4,7 +4,9 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import PrivateInfo from './BeneInfo/Private';
 
 const useStyles = makeStyles((theme) => ({
@@ -69,16 +71,21 @@ export default function BeneInfo(props) {
   ];
   const VeriText = () => {
     return (
-      <ListItem style={{ padding: 0, color: '#34C174' }} disableGutters="true">
+      <ListItemText>
         {clickCount === 0 ? null : (
-          <ListItem disableGutters="true">
-            <CheckCircleRoundedIcon style={TestIcon} />
-            <ListItem style={{ fontFamily: 'Open Sans', paddingLeft: '0' }}>
-              Verify Success!
+          <List disablePadding={true}>
+            <ListItem
+              style={{ padding: 0, color: '#34C174' }}
+              disableGutters={true}
+            >
+              <CheckCircleRoundedIcon style={TestIcon} />
+              <Typography style={{ fontFamily: 'Open Sans', paddingLeft: '0' }}>
+                Verify Success!
+              </Typography>
             </ListItem>
-          </ListItem>
+          </List>
         )}
-      </ListItem>
+      </ListItemText>
     );
   };
   const Click = () => {
@@ -105,12 +112,14 @@ export default function BeneInfo(props) {
 
   return (
     <React.Fragment>
-      <ListItem disableGutters="true">
-        {VeriText(props)}
-        {Click(props)}
-      </ListItem>
+      <List>
+        <ListItem disableGutters={true}>
+          {VeriText(props)}
+          {Click(props)}
+        </ListItem>
+      </List>
       <div className="border_form">
-        <Typography variant="h6" gutterBottom className="title">
+        <Typography component="h6" gutterBottom className="title">
           transfer info
         </Typography>
         <Grid container>

@@ -17,7 +17,6 @@ const currencyItems = [
 const defaultOriginatorInfo = {
   name: 'Alice Andrews',
   vasp_code: 'SBIEJPTK',
-  address: '0x05ECAf39376088D7C8bF1aCc06018D7C8bF1aCc0601',
   phy_address: 'Bahnhofstrasse 665, 8001 Zurich, Switzerland',
   birth: '1975-05-02',
   place_of_birth: 'Japan',
@@ -85,10 +84,46 @@ const address = {
   },
 };
 
+const OriAddress = {
+  'sygna:0x80000000': {
+    originator_address: '32tAGdxdU1tucMtwpAdTm9Fy3te1QYv7pG',
+  },
+  'sygna:0x8000003c': {
+    originator_address: '0x4c549990a7ef3fea8784406c1eecc98bf4211fa5',
+  },
+  'sygna:0x80000090': {
+    originator_address: 'rU7SubbJpe6UXLPtHpzRxQ6FqjX7FSqu5m',
+  },
+  'sygna:0x8000003c.31': {
+    originator_address: '1ERmw8uX3gQZ6fi242nEYGNCuWny2ibJPz',
+  },
+  'sygna:0x80000091': {
+    originator_address: 'qz9cq5rlkdrjy2zkfzqscq847q9n07mu5y7hj8fcge',
+  },
+  'sygna:0x800000ec': {
+    originator_address: '1P3GQYtcWgZHrrJhUa4ctoQ3QoCU2F65nz',
+  },
+  'sygna:0x80000002': {
+    originator_address:
+      'ltc1qag9y2jtlj0uesc0v6k62crntyh856mr3ya4q9kngj6tuz52jdpsqm2feq8',
+  },
+  'sygna:0x80000717': {
+    originator_address:
+      'Ae2tdPwUPEZ959vhCmXmW3CsaqiB8CX9qyXL2yENk2uHtm3r7q7jSjVLneC',
+  },
+  'sygna:0x8000003c.0x514910771af9ca656af840dff83e8264ecf986ca': {
+    originator_address: '0x514910771af9ca656af840dff83e8264ecf986ca',
+  },
+  'sygna:0x800002ca': {
+    originator_address: 'bnb1uqt9j3s8m7q6zvvn2azlaszllrl6rcm3nf4vjd',
+  },
+};
+
 export {
   currencyItems,
   defaultOriginatorInfo,
   FAKE_PRIVATE_KEY,
   FAKE_PUBLIC_KEY,
   address,
+  OriAddress,
 };
