@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 function Bridge(props) {
   const classes = useStyles();
   const { activeStep, clickAccept, signedData } = props;
-  //console.log(`signedData = ${JSON.stringify(signedData)}`);
   function OriVASP() {
     const classes = inputStyles();
     const originator_vasp_code = _.get(

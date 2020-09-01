@@ -88,13 +88,9 @@ function QontoStepIcon(props) {
         [classes.active]: active,
       })}
     >
-      {completed ? (
-        <div className={classes.circle}>
-          <Check className={classes.completed} />
-        </div>
-      ) : (
-        <div className={classes.circle} />
-      )}
+      <div className={classes.circle}>
+        {completed ? <Check className={classes.completed} /> : null}
+      </div>
     </div>
   );
 }
@@ -112,9 +108,8 @@ export default function StepBlock(props) {
       return 'Verify Signature';
     } else if (activeStep === 2) {
       return 'Confirm Transfer';
-    } else {
-      return 'Receive Certificate';
     }
+    return 'Receive Certificate';
   };
   return (
     <div>
@@ -131,9 +126,6 @@ export default function StepBlock(props) {
           <Step
             key={index.toString()}
             onClick={() => {
-              if (activeStep > 3) {
-                return;
-              }
               if (activeStep === 1 || activeStep === 2) {
                 props.onBackStep();
               }

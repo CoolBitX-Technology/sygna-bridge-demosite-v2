@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#222b45',
     boxSizing: 'border-box',
   },
-  marginY_1: {
+  marginVertical: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
@@ -92,7 +92,6 @@ export default function TransInfo(props) {
             value={beneficiary_vasp_code}
             onChange={onChange}
             displayEmpty
-            //inputProps={{ 'aria-label': 'Without label' }}
             classes={{ root: classes.root }}
             disabled={disable}
           >
@@ -114,7 +113,7 @@ export default function TransInfo(props) {
     return (
       <div>
         <TabPanel value={PersonType} index={1}>
-          <Grid container spacing={2} className={classes.marginY_1}>
+          <Grid container spacing={2} className={classes.marginVertical}>
             <Grid item xs={12} sm={6}>
               <Typography
                 variant="h6"
@@ -137,7 +136,7 @@ export default function TransInfo(props) {
               />
             </Grid>
           </Grid>
-          <Grid container spacing={2} className={classes.marginY_1}>
+          <Grid container spacing={2} className={classes.marginVertical}>
             <Grid item xs={12} sm={6}>
               <Typography
                 variant="h6"
@@ -163,7 +162,7 @@ export default function TransInfo(props) {
           <Grid
             container
             spacing={2}
-            className={classes.marginY_1}
+            className={classes.marginVertical}
             component="div"
           >
             <Grid item xs={12} sm={6}>
@@ -185,7 +184,7 @@ export default function TransInfo(props) {
     return (
       <div>
         <TabPanel value={PersonType} index={0}>
-          <Grid container spacing={2} className={classes.marginY_1}>
+          <Grid container spacing={2} className={classes.marginVertical}>
             <Grid item xs={12} sm={6}>
               <Typography
                 variant="h6"
@@ -208,7 +207,7 @@ export default function TransInfo(props) {
               />
             </Grid>
           </Grid>
-          <Grid container spacing={2} className={classes.marginY_1}>
+          <Grid container spacing={2} className={classes.marginVertical}>
             <Grid item xs={12} sm={6}>
               <Typography
                 variant="h6"
@@ -230,7 +229,7 @@ export default function TransInfo(props) {
         <Typography variant="h6" className="title">
           transfer info
         </Typography>
-        <Grid container spacing={2} className={classes.marginY_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12} sm={6}>
             <Typography variant="h6" gutterBottom className="title label_title">
               currency
@@ -265,7 +264,7 @@ export default function TransInfo(props) {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.marginY_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12} sm={6}>
             <Typography variant="h6" gutterBottom className="title label_title">
               Amount
@@ -286,7 +285,7 @@ export default function TransInfo(props) {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.marginY_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
               beneficiary virtual asset address (compatible with VAAI)

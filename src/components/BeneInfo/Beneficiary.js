@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '30px',
     textAlign: 'center',
   },
-  marginY_1: {
+  marginVertical: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
@@ -52,7 +52,7 @@ export default function Beneficiary(props) {
             <Typography variant="h6" className="title">
               transfer info
             </Typography>
-            <Grid container spacing={2} className={classes.marginY_1}>
+            <Grid container spacing={2} className={classes.marginVertical}>
               <Grid item xs={12} sm={6}>
                 <Typography
                   variant="h6"
@@ -85,7 +85,7 @@ export default function Beneficiary(props) {
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2} className={classes.marginY_1}>
+            <Grid container spacing={2} className={classes.marginVertical}>
               <Grid item xs={12} sm={6}>
                 <Typography
                   variant="h6"
@@ -136,7 +136,7 @@ export default function Beneficiary(props) {
                   </Typography>
                 </Grid>
               </Grid>
-              <Grid container spacing={2} className={classes.marginY_1}>
+              <Grid container spacing={2} className={classes.marginVertical}>
                 <Grid item xs={12} sm={6}>
                   <Typography variant="h6" gutterBottom className="title">
                     virtual asset account Information (VAAI)
@@ -174,7 +174,7 @@ export default function Beneficiary(props) {
               <Typography variant="h6" gutterBottom className="title">
                 natural person
               </Typography>
-              <Grid container spacing={2} className={classes.marginY_1}>
+              <Grid container spacing={2} className={classes.marginVertical}>
                 <Grid item xs={12} sm={6}>
                   <Typography
                     variant="h6"
@@ -193,7 +193,7 @@ export default function Beneficiary(props) {
                   />
                 </Grid>
               </Grid>
-              <Grid container spacing={2} className={classes.marginY_1}>
+              <Grid container spacing={2} className={classes.marginVertical}>
                 <Grid item xs={12} sm={6}>
                   <Typography
                     variant="h6"
@@ -212,7 +212,7 @@ export default function Beneficiary(props) {
                   />
                 </Grid>
               </Grid>
-              <Grid container spacing={2} className={classes.marginY_1}>
+              <Grid container spacing={2} className={classes.marginVertical}>
                 <Grid item xs={12} sm={6}>
                   <Typography
                     variant="h6"

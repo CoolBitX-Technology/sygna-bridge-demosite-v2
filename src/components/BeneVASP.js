@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TestBtn = withStyles({
+const ActBtn = withStyles({
   root: {
     marginBottom: '0',
     padding: '8px 15px',
@@ -30,12 +30,12 @@ const TestBtn = withStyles({
   },
 })(Button);
 
-const TestIcon = {
+const iconStyle = {
   marginRight: '5px',
   fontSize: '32px',
 };
 
-const TestBlu = withStyles({
+const BlueTxt = withStyles({
   root: {
     borderColor: '#006FB1',
     color: '#006FB1',
@@ -78,7 +78,7 @@ export default function BeneInfo(props) {
               style={{ padding: 0, color: '#34C174' }}
               disableGutters={true}
             >
-              <CheckCircleRoundedIcon style={TestIcon} />
+              <CheckCircleRoundedIcon style={iconStyle} />
               <Typography style={{ fontFamily: 'Open Sans', paddingLeft: '0' }}>
                 Verify Success!
               </Typography>
@@ -92,7 +92,7 @@ export default function BeneInfo(props) {
     return (
       <Typography>
         {clickCount < 2 ? (
-          <TestBtn
+          <ActBtn
             onClick={() => {
               if (clickCount === 1) {
                 props.onDycrypt();
@@ -104,7 +104,7 @@ export default function BeneInfo(props) {
             className="btn btn-primary"
           >
             {clickCount === 0 ? 'Verify' : 'Decrypt'}
-          </TestBtn>
+          </ActBtn>
         ) : null}
       </Typography>
     );
@@ -114,8 +114,8 @@ export default function BeneInfo(props) {
     <React.Fragment>
       <List>
         <ListItem disableGutters={true}>
-          {VeriText(props)}
-          {Click(props)}
+          {VeriText()}
+          {Click()}
         </ListItem>
       </List>
       <div className="border_form">
@@ -129,7 +129,7 @@ export default function BeneInfo(props) {
             </Typography>
           </Grid>
           <Grid item xs={8} md={9}>
-            <TestBlu className={classes.root}>{private_info}</TestBlu>
+            <BlueTxt className={classes.root}>{private_info}</BlueTxt>
           </Grid>
         </Grid>
         <div className="divider"></div>
@@ -143,7 +143,7 @@ export default function BeneInfo(props) {
                 <Typography gutterBottom>{transcation.name}</Typography>
               </Grid>
               <Grid item xs={8} md={9}>
-                <TestBlu gutterBottom>{transcation.detail}</TestBlu>
+                <BlueTxt gutterBottom>{transcation.detail}</BlueTxt>
               </Grid>
             </React.Fragment>
           ))}
@@ -156,7 +156,7 @@ export default function BeneInfo(props) {
             </Typography>
           </Grid>
           <Grid item xs={8} md={9}>
-            <TestBlu>{data_dt}</TestBlu>
+            <BlueTxt>{data_dt}</BlueTxt>
           </Grid>
         </Grid>
         <div className="divider"></div>
@@ -167,7 +167,7 @@ export default function BeneInfo(props) {
             </Typography>
           </Grid>
           <Grid item xs={8} md={9}>
-            <TestBlu>{signature}</TestBlu>
+            <BlueTxt>{signature}</BlueTxt>
           </Grid>
         </Grid>
         <div className="divider"></div>
@@ -178,7 +178,7 @@ export default function BeneInfo(props) {
             </Typography>
           </Grid>
           <Grid item xs={8} md={9}>
-            <TestBlu>{transfer_id}</TestBlu>
+            <BlueTxt>{transfer_id}</BlueTxt>
           </Grid>
         </Grid>
       </div>

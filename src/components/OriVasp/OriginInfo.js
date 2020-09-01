@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#CC2A32',
     boxSizing: 'border-box',
   },
-  marginY_1: {
+  marginVertical: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
@@ -47,7 +47,7 @@ export default function OriginInfo(props) {
         <Typography variant="h6" gutterBottom className="title">
           originator info
         </Typography>
-        <Grid container spacing={2} className={classes.marginY_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12} sm={6}>
             <Typography variant="h6" gutterBottom className="title label_title">
               name
@@ -75,7 +75,7 @@ export default function OriginInfo(props) {
             </FormControl>
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.marginY_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
               Originator Virtual Asset Address
@@ -91,7 +91,7 @@ export default function OriginInfo(props) {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.marginY_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
               Physical Address
@@ -106,7 +106,7 @@ export default function OriginInfo(props) {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.marginY_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
               Date of birth
@@ -120,7 +120,7 @@ export default function OriginInfo(props) {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.marginY_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
               Place of birth
@@ -134,7 +134,7 @@ export default function OriginInfo(props) {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.marginY_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
               Unique Identity
@@ -148,7 +148,7 @@ export default function OriginInfo(props) {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.marginY_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
               National Identity Number

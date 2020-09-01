@@ -86,11 +86,11 @@ function Content(props) {
     obj[event.target.name] = event.target.value;
     inputErrors[event.target.name] = '';
     if (event.target.name === 'beneficiary_address') {
-      const abc = obj['beneficiary_address']; //=== obj.beneficiary_address
-      const n = abc.indexOf(':');
+      const address = obj['beneficiary_address']; //=== obj.beneficiary_address
+      const n = address.indexOf(':');
       if (n >= 3) {
-        const currency = abc.substring(0, n).toLowerCase();
-        const decoded = bip21.decode(abc, currency);
+        const currency = address.substring(0, n).toLowerCase();
+        const decoded = bip21.decode(address, currency);
         const result = supportedCoins.find((data) => {
           return data.currency_name.toLowerCase() === currency;
         });
@@ -107,8 +107,8 @@ function Content(props) {
             legal_name: decoded.options.legalPersonName,
             beneficiary_address: decoded.address,
             beneficiary_vasp_code: decoded.options.vc,
+            ...OriAddress[coins],
           };
-          obj = { ...obj, ...OriAddress[obj.currency_id] };
         }
       }
     }
@@ -248,7 +248,6 @@ function Content(props) {
           />
         );
       default:
-        // throw new Error('Unknown step');
         console.log('Unknown step');
     }
   }
@@ -257,7 +256,7 @@ function Content(props) {
       <div className="container">
         <div className={classes.root}>
           <div className={classes.stepBlock}>
-            {<StepBlock activeStep={activeStep} onBackStep={handleStep} />}
+            <StepBlock activeStep={activeStep} onBackStep={handleStep} />
           </div>
           <Grid container spacing={3}>
             {/* VASP & Info */}
