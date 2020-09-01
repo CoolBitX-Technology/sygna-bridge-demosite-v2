@@ -33,11 +33,9 @@ export default function Originator(props) {
     e.preventDefault();
     const form = e.target;
     const isValid = form.checkValidity(); // 目前的表單資料是不是有效的
-    // const isValid = true;
     const formData = new FormData(form); //表單的資料拿出來
     const validationMessages = Array.from(formData.keys()).reduce(
       (acc, key) => {
-        // console.log(`key = ${key}`);
         acc[key] = form.elements[key].validationMessage;
         return acc;
       },
@@ -52,7 +50,7 @@ export default function Originator(props) {
   };
   return (
     <React.Fragment>
-      <main className={classes.layout}>
+      <div className={classes.layout}>
         {activeStep === 3 ? (
           <BeneResult
             activeStep={activeStep}
@@ -60,27 +58,29 @@ export default function Originator(props) {
             signedData={signedData}
           />
         ) : null}
-        <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+        <form noValidate onSubmit={handleSubmit}>
           <TransInfo
             disable={disable}
             transferInfo={transferInfo}
             onChange={onChange}
             inputErrors={inputErrors}
           />
-          {activeStep === 3 ? null : <OriginInfo />}
           {activeStep === 3 ? null : (
-            <div className={classes.buttons}>
-              <Button
-                variant="contained"
-                type={'submit'}
-                className="btn btn-primary"
-              >
-                Send
-              </Button>
+            <div>
+              <OriginInfo transferInfo={transferInfo} onChange={onChange} />
+              <div className={classes.buttons}>
+                <Button
+                  variant="contained"
+                  type={'submit'}
+                  className="btn btn-primary"
+                >
+                  Send
+                </Button>
+              </div>
             </div>
           )}
         </form>
-      </main>
+      </div>
     </React.Fragment>
   );
 }
