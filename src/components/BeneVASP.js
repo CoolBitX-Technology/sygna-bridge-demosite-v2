@@ -4,7 +4,9 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import PrivateInfo from './BeneInfo/Private';
 
 const useStyles = makeStyles((theme) => ({
@@ -13,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TestBtn = withStyles({
+const ActBtn = withStyles({
   root: {
     marginBottom: '0',
     padding: '8px 15px',
@@ -28,12 +30,12 @@ const TestBtn = withStyles({
   },
 })(Button);
 
-const TestIcon = {
+const iconStyle = {
   marginRight: '5px',
   fontSize: '32px',
 };
 
-const TestBlu = withStyles({
+const BlueTxt = withStyles({
   root: {
     borderColor: '#006FB1',
     color: '#006FB1',
@@ -69,23 +71,28 @@ export default function BeneInfo(props) {
   ];
   const VeriText = () => {
     return (
-      <ListItem style={{ padding: 0, color: '#34C174' }} disableGutters="true">
+      <ListItemText>
         {clickCount === 0 ? null : (
-          <ListItem disableGutters="true">
-            <CheckCircleRoundedIcon style={TestIcon} />
-            <ListItem style={{ fontFamily: 'Open Sans', paddingLeft: '0' }}>
-              Verify Success!
+          <List disablePadding={true}>
+            <ListItem
+              style={{ padding: 0, color: '#34C174' }}
+              disableGutters={true}
+            >
+              <CheckCircleRoundedIcon style={iconStyle} />
+              <Typography style={{ fontFamily: 'Open Sans', paddingLeft: '0' }}>
+                Verify Success!
+              </Typography>
             </ListItem>
-          </ListItem>
+          </List>
         )}
-      </ListItem>
+      </ListItemText>
     );
   };
   const Click = () => {
     return (
       <Typography>
         {clickCount < 2 ? (
-          <TestBtn
+          <ActBtn
             onClick={() => {
               if (clickCount === 1) {
                 props.onDycrypt();
@@ -97,7 +104,7 @@ export default function BeneInfo(props) {
             className="btn btn-primary"
           >
             {clickCount === 0 ? 'Verify' : 'Decrypt'}
-          </TestBtn>
+          </ActBtn>
         ) : null}
       </Typography>
     );
@@ -105,12 +112,14 @@ export default function BeneInfo(props) {
 
   return (
     <React.Fragment>
-      <ListItem disableGutters="true">
-        {VeriText(props)}
-        {Click(props)}
-      </ListItem>
+      <List>
+        <ListItem disableGutters={true}>
+          {VeriText()}
+          {Click()}
+        </ListItem>
+      </List>
       <div className="border_form">
-        <Typography variant="h6" gutterBottom className="title">
+        <Typography component="h6" gutterBottom className="title">
           transfer info
         </Typography>
         <Grid container>
@@ -120,7 +129,7 @@ export default function BeneInfo(props) {
             </Typography>
           </Grid>
           <Grid item xs={8} md={9}>
-            <TestBlu className={classes.root}>{private_info}</TestBlu>
+            <BlueTxt className={classes.root}>{private_info}</BlueTxt>
           </Grid>
         </Grid>
         <div className="divider"></div>
@@ -134,7 +143,7 @@ export default function BeneInfo(props) {
                 <Typography gutterBottom>{transcation.name}</Typography>
               </Grid>
               <Grid item xs={8} md={9}>
-                <TestBlu gutterBottom>{transcation.detail}</TestBlu>
+                <BlueTxt gutterBottom>{transcation.detail}</BlueTxt>
               </Grid>
             </React.Fragment>
           ))}
@@ -147,7 +156,7 @@ export default function BeneInfo(props) {
             </Typography>
           </Grid>
           <Grid item xs={8} md={9}>
-            <TestBlu>{data_dt}</TestBlu>
+            <BlueTxt>{data_dt}</BlueTxt>
           </Grid>
         </Grid>
         <div className="divider"></div>
@@ -158,7 +167,7 @@ export default function BeneInfo(props) {
             </Typography>
           </Grid>
           <Grid item xs={8} md={9}>
-            <TestBlu>{signature}</TestBlu>
+            <BlueTxt>{signature}</BlueTxt>
           </Grid>
         </Grid>
         <div className="divider"></div>
@@ -169,7 +178,7 @@ export default function BeneInfo(props) {
             </Typography>
           </Grid>
           <Grid item xs={8} md={9}>
-            <TestBlu>{transfer_id}</TestBlu>
+            <BlueTxt>{transfer_id}</BlueTxt>
           </Grid>
         </Grid>
       </div>

@@ -12,7 +12,7 @@ const grayTxt = {
   color: '#8F9BB3',
 };
 
-const TestBlu = withStyles({
+const BlueTxt = withStyles({
   root: {
     color: '#006FB1',
     wordWrap: 'break-word',
@@ -34,7 +34,7 @@ export default function BeneResult(props) {
             </Typography>
           </Grid>
           <Grid item xs={8} md={9}>
-            <TestBlu>{signedData.transfer_id}</TestBlu>
+            <BlueTxt>{signedData.transfer_id}</BlueTxt>
           </Grid>
         </Grid>
         <div className="divider"></div>
@@ -60,7 +60,7 @@ export default function BeneResult(props) {
             </Typography>
           </Grid>
           <Grid item xs={8} md={9}>
-            <TestBlu>{signedData.signature}</TestBlu>
+            <BlueTxt>{signedData.signature}</BlueTxt>
           </Grid>
         </Grid>
       </div>

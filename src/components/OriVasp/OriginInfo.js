@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#CC2A32',
     boxSizing: 'border-box',
   },
-  my_1: {
+  marginVertical: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
@@ -26,18 +26,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function OriginInfo() {
+export default function OriginInfo(props) {
   const classes = useStyles();
+  const { transferInfo, onChange } = props;
   const {
     name,
     vasp_code,
-    address,
     phy_address,
     birth,
     place_of_birth,
     identity,
     identity_num,
   } = defaultOriginatorInfo;
+  const { originator_address } = transferInfo;
 
   return (
     <React.Fragment>
@@ -46,7 +47,7 @@ export default function OriginInfo() {
         <Typography variant="h6" gutterBottom className="title">
           originator info
         </Typography>
-        <Grid container spacing={2} className={classes.my_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12} sm={6}>
             <Typography variant="h6" gutterBottom className="title label_title">
               name
@@ -74,7 +75,7 @@ export default function OriginInfo() {
             </FormControl>
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.my_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
               Originator Virtual Asset Address
@@ -83,13 +84,14 @@ export default function OriginInfo() {
               required
               id="o_address"
               name="o_address"
-              value={address}
+              value={originator_address}
               fullWidth
               disabled
+              onChange={onChange}
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.my_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
               Physical Address
@@ -104,7 +106,7 @@ export default function OriginInfo() {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.my_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
               Date of birth
@@ -118,7 +120,7 @@ export default function OriginInfo() {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.my_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
               Place of birth
@@ -132,7 +134,7 @@ export default function OriginInfo() {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.my_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
               Unique Identity
@@ -146,7 +148,7 @@ export default function OriginInfo() {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} className={classes.my_1}>
+        <Grid container spacing={2} className={classes.marginVertical}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom className="title label_title">
               National Identity Number
