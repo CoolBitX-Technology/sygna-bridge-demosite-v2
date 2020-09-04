@@ -240,7 +240,7 @@ export default function Beneficiary(props) {
               className="btn btn-primary"
               onClick={props.onStart}
             >
-              Request a Payment
+              Share VAAI
             </Button>
           </div>
         </form>
