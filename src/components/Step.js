@@ -103,11 +103,11 @@ export default function StepBlock(props) {
   const { activeStep } = props;
   const description = () => {
     if (activeStep < 1) {
-      return 'Prepare Data';
+      return 'Both users exchange account information';
     } else if (activeStep === 1) {
-      return 'Verify Signature';
+      return 'Originator VASP sends a transfer request';
     } else if (activeStep === 2) {
-      return 'Confirm Transfer';
+      return 'Beneficiary VASP replies with a confirmation certificate';
     }
     return 'Receive Certificate';
   };
