@@ -100,7 +100,7 @@ export default function TransInfo(props) {
             </MenuItem>
             <MenuItem value={'BTOPTWTP'}>BTOPTWTP, BitoPro</MenuItem>
             <MenuItem value={'SBIEJPTK'}>SBIEJPTK, SBIVCT</MenuItem>
-            <MenuItem value={'BTSNKRSE'}>BTSNKRSE, BitSonic</MenuItem>
+            <MenuItem value={'DIGISGSG'}>DIGISGSG, DigiFinex Pte. Ltd.</MenuItem>
           </Select>
           {getError('beneficiary_vasp_code') ? (
             <FormHelperText>{getError('beneficiary_vasp_code')}</FormHelperText>

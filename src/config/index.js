@@ -34,53 +34,53 @@ const address = {
   'sygna:0x80000000': {
     beneficiary_address: '1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY',
     VAAI:
-      'bitcoin:1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=BTSNKRSE',
+      'bitcoin:1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=DIGISGSG',
   },
   'sygna:0x8000003c': {
     beneficiary_address: '0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c',
     VAAI:
-      'ethereum:0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=BTSNKRSE',
+      'ethereum:0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=DIGISGSG',
   },
   'sygna:0x80000090': {
     beneficiary_address: 'r3kmLJN5D28dHuH8vZNUZpMC43pEHpaocV',
     VAAI:
-      'XRP:r3kmLJN5D28dHuH8vZNUZpMC43pEHpaocV?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=BTSNKRSE',
+      'XRP:r3kmLJN5D28dHuH8vZNUZpMC43pEHpaocV?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=DIGISGSG',
   },
   'sygna:0x8000003c.31': {
     beneficiary_address: '32TLn1WLcu8LtfvweLzYUYU6ubc2YV9eZs',
     VAAI:
-      'Tether:32TLn1WLcu8LtfvweLzYUYU6ubc2YV9eZs?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=BTSNKRSE',
+      'Tether:32TLn1WLcu8LtfvweLzYUYU6ubc2YV9eZs?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=DIGISGSG',
   },
   'sygna:0x80000091': {
     beneficiary_address: 'qqaaze7dav43jnduf5ln9hqkmw9htaechusat4vdje',
     VAAI:
-      'Bitcoin Cash:qqaaze7dav43jnduf5ln9hqkmw9htaechusat4vdje?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=BTSNKRSE',
+      'Bitcoin Cash:qqaaze7dav43jnduf5ln9hqkmw9htaechusat4vdje?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=DIGISGSG',
   },
   'sygna:0x800000ec': {
     beneficiary_address: '1AXipG6y5GxVZPdUtubtihLk88dmb3w62p',
     VAAI:
-      'Bitcoin SV:1AXipG6y5GxVZPdUtubtihLk88dmb3w62p?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=BTSNKRSE',
+      'Bitcoin SV:1AXipG6y5GxVZPdUtubtihLk88dmb3w62p?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=DIGISGSG',
   },
   'sygna:0x80000002': {
     beneficiary_address: 'M96ZXa3HEAbdFwYPsnTKSQqQ3YFooXMUa1',
     VAAI:
-      'Litecoin:M96ZXa3HEAbdFwYPsnTKSQqQ3YFooXMUa1?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=BTSNKRSE',
+      'Litecoin:M96ZXa3HEAbdFwYPsnTKSQqQ3YFooXMUa1?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=DIGISGSG',
   },
   'sygna:0x80000717': {
     beneficiary_address:
       'Ae2tdPwUPEZ2sVRVovpLEDqJcqdKabNpbsmbmghVfTxDXXfuNS7wNVk9ea6',
     VAAI:
-      'Cardano:Ae2tdPwUPEZ2sVRVovpLEDqJcqdKabNpbsmbmghVfTxDXXfuNS7wNVk9ea6?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=BTSNKRSE',
+      'Cardano:Ae2tdPwUPEZ2sVRVovpLEDqJcqdKabNpbsmbmghVfTxDXXfuNS7wNVk9ea6?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=DIGISGSG',
   },
   'sygna:0x8000003c.0x514910771af9ca656af840dff83e8264ecf986ca': {
     beneficiary_address: '0xcf8c7198960268247ba0b432b609a96c61bd04cc',
     VAAI:
-      'Chainlink:0xcf8c7198960268247ba0b432b609a96c61bd04cc?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=BTSNKRSE',
+      'Chainlink:0xcf8c7198960268247ba0b432b609a96c61bd04cc?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=DIGISGSG',
   },
   'sygna:0x800002ca': {
     beneficiary_address: 'bnb1s3f8vxaqum3pft6cefyn99px8wq6uk3jdtyarn',
     VAAI:
-      'Binance Coin:bnb1s3f8vxaqum3pft6cefyn99px8wq6uk3jdtyarn?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=BTSNKRSE',
+      'Binance Coin:bnb1s3f8vxaqum3pft6cefyn99px8wq6uk3jdtyarn?personType=NaturalPerson&primaryIdentifier=Baxter&secondaryIdentifier=Bob&vc=DIGISGSG',
   },
 };
 

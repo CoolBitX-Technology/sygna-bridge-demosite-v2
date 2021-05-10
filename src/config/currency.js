@@ -12340,13 +12340,6 @@ export const supportedCoins = [
     addr_extra_info: [],
   },
   {
-    currency_id: 'sygna:0x8000003c.0xe541504417670fb76b612b41b4392d967a1956c7',
-    currency_name: 'Bitsonic',
-    currency_symbol: 'BSC',
-    is_active: true,
-    addr_extra_info: [],
-  },
-  {
     currency_id: 'sygna:0x8000003c.0xBB1fA4FdEB3459733bF67EbC6f893003fA976a82',
     currency_name: 'Bitnation',
     currency_symbol: 'XPAT',
